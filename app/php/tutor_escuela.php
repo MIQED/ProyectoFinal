@@ -28,6 +28,7 @@ echo "$_SESSION[nombre]";
  	</script>
  </head>
  <body>
+ <div><a href="proc/logout.proc.php">Cerrar sessión</a></div>
  <h1>Buscar Alumno</h1>
  <input id="alumno" type="text" name="alumno">
  <div id="alumnos"></div>

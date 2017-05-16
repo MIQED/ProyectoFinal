@@ -12,7 +12,7 @@ session_start();
 $id = $_SESSION['id'];
 
 
-$sql = "SELECT * FROM alumno WHERE alu_id ='$id'";
+$sql = "SELECT * FROM alumno INNER JOIN ciclo ON ciclo.cic_id = alumno.alu_cicloid WHERE alu_id ='$id'";
 
 $alumnos = mysqli_query($conexion, $sql);
 
@@ -29,6 +29,7 @@ while ($alumno = mysqli_fetch_object($alumnos)) {
 	echo "<b>Pais</b>: $alumno->alu_pais<br>";
 	echo "<b>CP</b>: $alumno->alu_cp<br>";
 	echo "<b>Observaciones</b>: $alumno->alu_observaciones<br>";
+	echo "<b>Ciclo</b>: $alumno->cic_nombre<br>";
 	echo "<b>Curso</b>: $alumno->alu_curso<br>";
 	echo "<b>Email</b>: $alumno->alu_email<br>";
 	

@@ -1,4 +1,6 @@
 <?php 
+include '../../bd_con/conexion.php';
+session_start();
 
 $showmonth = $_POST['showmonth'];
 $showyear=$_POST['showyear'];
@@ -15,16 +17,16 @@ $ano = date('Y');
 		$mes = substr($mes, -1);
 	}	
 
-$hoy = "$day / $mes / $ano";
+$hoy = "$day/$mes/$ano";
 	
 echo "<div class='title_bar'>";
 	echo "<div class='previous_month'><button onclick='prev_month($showmonth, $showyear);'>Anterior</button></div>";
 	echo "<div class='show_month'>".$showmonth."/".$showyear."</div>";
 	echo "<div class='next_month'><button onclick='next_month($showmonth, $showyear);'>Siguiente</button></div>";
-echo "</diV>";
+echo "</div>";
 
 echo "<div id='tareasAlumno'>";
-echo "</diV>";
+echo "</div>";
 
 
 echo "<br><br><br><br>";
@@ -45,14 +47,28 @@ if ($pre_days != 0) {
 	}
 }
 
+	$hoy_t = str_replace('/', '-', $hoy);
+	$hoy_t = date('Y-m-d', strtotime($hoy_t));
+
 for ($i=1; $i<=$day_count ; $i++) { 
-	$dia = "$i / $showmonth / $showyear";
+	$dia = "$i/$showmonth/$showyear";
+
+	$dia_t = str_replace('/', '-', $dia);
+	$dia_t = date('Y-m-d', strtotime($dia_t));
+
+	$dia_completo_sql = "SELECT * FROM tarea INNER JOIN convenio ON convenio.con_id = tarea.tar_convenioid WHERE con_alumnoid = $_SESSION[id] AND tar_fecha = '$dia_t'";
+	$dia_completos = mysqli_query($conexion, $dia_completo_sql);
+
+	if (mysqli_num_rows($dia_completos)>0) {
+			$color = "background-color:yellow;";
+			$update = "update";
+			}
 
 	$time = "$showyear/$showmonth/$i";
 
 	if(date('w', strtotime($time)) == 6 || date('w', strtotime($time)) == 0) {
 		$estilo = "background-color:#ccc;";
-}
+	}
 
 	if ($dia == $hoy) {
 		$color = "background-color:green;";
@@ -69,10 +85,27 @@ for ($i=1; $i<=$day_count ; $i++) {
 			<div class="day_heading"><?php echo "$i"?></div>
 		<?php	
 		echo "</div>";
-		} else {
+		} else if ($hoy_t < $dia_t) {
+			$div = "<diV class='cal_day' ";
+			if(isset($color)){
+				$div .= "style='$color";
+			}
+			$div .= "'>";
+			echo "$div";
 			?>
-			<a href="#" onclick="mostrarDias(<?php echo " '$dia'"; ?>);">
+			<div class="day_heading"><?php echo "$i"?></div>
+		<?php	
+		echo "</div>";
+		} else {
+			if (isset($update)){
+				?>
+			<a href="#" onclick="mostrarDias(<?php echo " '$dia'"; ?>, 'update');">
 			<?php
+			}else{
+				?>
+			<a href="#" onclick="mostrarDias(<?php echo " '$dia'"; ?>, 'insert');">
+			<?php
+			}
 			$div = "<diV class='cal_day' ";
 			if(isset($color)){
 				$div .= "style='$color";
@@ -83,10 +116,12 @@ for ($i=1; $i<=$day_count ; $i++) {
 			<div class="day_heading"><?php echo "$i"?></div>
 		<?php	
 		echo "</div></a>";
+
 		}
 
 	$estilo = null;
 	$color = null;
+	$update = null;
 }
 
 

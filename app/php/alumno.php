@@ -129,7 +129,7 @@
 				}
 				window.onload = enviarHome();
 
-				function mostrarDias(dia){
+				function mostrarDias(dia, tipo){
 					var ajax=objetoAjax();
 					var url = 'tareasAlumno.php';
 					ajax.open("POST", url, true);
@@ -139,7 +139,7 @@
 						document.getElementById('tareasAlumno').innerHTML = ajax.responseText;
 					}
 				  }
-  				ajax.send("dia="+dia);
+  				ajax.send("dia="+dia+"&tipo="+tipo);
 				}
 
 	</script>
@@ -151,6 +151,7 @@
 		<li><a href="#" onclick="enviarDatos();">Mi perfil</a></li>
 	</ul>
 </nav>
+<div><a href="proc/logout.proc.php">Cerrar sessión</a></div>
 <div id="calendar_wrap"></div>
 </body>
 </html>
