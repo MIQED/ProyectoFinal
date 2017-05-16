@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 10, 2017 at 05:22 PM
--- Server version: 10.1.13-MariaDB
--- PHP Version: 7.0.6
+-- Generation Time: May 16, 2017 at 02:32 PM
+-- Server version: 10.1.16-MariaDB
+-- PHP Version: 5.6.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -153,7 +153,7 @@ CREATE TABLE `tarea` (
   `tar_id` int(11) NOT NULL,
   `tar_descripcion` text NOT NULL,
   `tar_duracion` varchar(10) NOT NULL,
-  `tar_nota_tutor` int(2) NOT NULL,
+  `tar_nota_tutor` int(2) DEFAULT NULL,
   `tar_fecha` date NOT NULL,
   `tar_convenio` int(11) NOT NULL,
   `tar_tiptareaid` int(11) NOT NULL
@@ -162,13 +162,63 @@ CREATE TABLE `tarea` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tipo_h_tarea`
+--
+
+CREATE TABLE `tipo_h_tarea` (
+  `tip_tar_id` int(11) NOT NULL,
+  `tip_tar_descripcion` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tipo_h_tarea`
+--
+
+INSERT INTO `tipo_h_tarea` (`tip_tar_id`, `tip_tar_descripcion`) VALUES
+(1, '1. Relacionades amb la gestió i utilització de sistemes informàtics i entorns de desenvolupament, avaluant els seus requeriments i característiques en funció del propòsit d''ús.'),
+(2, '2. Relacionades amb la participació en la gestió de bases de dades i servidors d''aplicacions, avaluant / planificant la seva configuració en funció del projecte de desenvolupament web al qual donen suport.'),
+(3, '4. Relacionades amb la intervenció en el desenvolupament i prova de la interfície per a aplicacions web, utilitzant les eines i llenguatges específics i complint els requeriments establerts.');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tipo_tarea`
 --
 
 CREATE TABLE `tipo_tarea` (
-  `tip_tar_id` int(11) NOT NULL,
-  `tip_tar_descripcion` text NOT NULL
+  `tt_id` int(11) NOT NULL,
+  `tt_descripcion` text NOT NULL,
+  `tt_tiphtarid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tipo_tarea`
+--
+
+INSERT INTO `tipo_tarea` (`tt_id`, `tt_descripcion`, `tt_tiphtarid`) VALUES
+(1, '1.1. Treball sobre diferents sistemes informàtics, identificant en cada cas el seu maquinari, sistemes operatius i aplicacions instal·lades i les restriccions o condicions específiques d''ús.', 1),
+(2, '1.2. Gestió la informació en diferents sistemes, aplicant mesures que assegurin la integritat i disponibilitat de les dades.', 1),
+(3, '1.3. Participació en la gestió de recursos en xarxa identificant les restriccions de seguretat existents.', 1),
+(4, '1.4. Utilització aplicacions informàtiques per elaborar, distribuir i mantenir documentació tècnica i d''assistència a usuaris.', 1),
+(5, '1.5. Gestió d''entorns de desenvolupament, per editar, depurar, provar i documentar codi, a més de generar executables.', 1),
+(6, '1.6. Gestió d''entorns de desenvolupament afegint i emprant complements específics en les diferents fases de projectes de desenvolupament.', 1),
+(7, '2.1. Interpretació del disseny lògic de bases de dades que asseguren l''accessibilitat a les dades.', 2),
+(8, '2.2. Participació en la materialització del disseny lògic sobre algun sistema gestor de bases de dades.', 2),
+(9, '2.3. Utilització de bases de dades aplicant tècniques per mantenir la persistència de la informació.', 2),
+(10, '2.4. Execució de consultes directes i procediments capaços de gestionar i emmagatzemar objectes i dades de la base de dades.', 2),
+(11, '2.5. Establiment de connexions amb bases de dades per executar consultes i recuperar els resultats en objectes d''accés a dades.', 2),
+(12, '2.6. Participació en la gestió de servidors per a la publicació d''aplicacions Web.', 2),
+(13, '2.7. Verificació de la configuració dels serveis de xarxa per garantir l''execució segura de les aplicacions Web.', 2),
+(14, '2.8. Configuració de sistemes de gestió de bases de dades i la seva interconnexió amb el servidor d''aplicacions web.', 2),
+(15, '2.9. Elaboració de manuals de servei i manteniment del servidor d''aplicacions i del sistema gestor de bases de dades.', 2),
+(16, '4.1. Interpretació del disseny i la guia d''estil per a la interfície de les aplicacions web que s''han de desenvolupar, atenent les indicacions de l''equip de disseny.', 3),
+(17, '4.2. Edició i prova de blocs de sentències en llenguatges de marques que formen totalment o parcialment la interfície d''aplicacions web, administrant estils des de fulles externes.', 3),
+(18, '4.3. Utilització de fulls de transformació per a convertir i adaptar informació als formats de presentació adequats a la part client.', 3),
+(19, '4.4. Participació en la preparació i integració de materials multimèdia per a la interfície d''una aplicació web, seguint les instruccions de l''equip de disseny.', 3),
+(20, '4.5. Col·laboració en el desenvolupament d''aplicacions web interactives, basades en el maneig d''esdeveniments i en la integració d''elements interactius i animacions.', 3),
+(21, '4.6. Verificació, accessibilitat i usabilitat de les aplicacions web, prendre part en els canvis i mesures necessàries per complir els nivells exigits.', 3),
+(22, '4.7. Col·laboració amb els encarregats del disseny i desenvolupament de la part servidor de les aplicacions web, unificant criteris i coordinant el desenvolupament en ambdós costats de l''aplicació.', 3),
+(23, '4.8. Participació en la definició i elaboració de la documentació i de la resta de components utilitzats en els protocols d''assistència a l''usuari de l''aplicació.', 3);
 
 -- --------------------------------------------------------
 
@@ -208,7 +258,7 @@ CREATE TABLE `tutor_escuela` (
 --
 
 INSERT INTO `tutor_escuela` (`tut_esc_id`, `tut_esc_nombre`, `tut_esc_apellido1`, `tut_esc_apellido2`, `tut_esc_email`, `tut_esc_pass`, `tut_esc_telf`) VALUES
-(1, 'Pedro', 'Blanco', 'Asecas', 'pblanco@fje.edu', '1234', 123456789);
+(1, 'Pedro', 'Blanco', 'Asecas', 'pblanco@fje.edu', 'miuMRKK8xhs3M', 123456789);
 
 --
 -- Indexes for dumped tables
@@ -263,10 +313,16 @@ ALTER TABLE `tarea`
   ADD PRIMARY KEY (`tar_id`);
 
 --
+-- Indexes for table `tipo_h_tarea`
+--
+ALTER TABLE `tipo_h_tarea`
+  ADD PRIMARY KEY (`tip_tar_id`);
+
+--
 -- Indexes for table `tipo_tarea`
 --
 ALTER TABLE `tipo_tarea`
-  ADD PRIMARY KEY (`tip_tar_id`);
+  ADD PRIMARY KEY (`tt_id`);
 
 --
 -- Indexes for table `tutor_empresa`
@@ -325,10 +381,15 @@ ALTER TABLE `horario_convenio`
 ALTER TABLE `tarea`
   MODIFY `tar_id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `tipo_h_tarea`
+--
+ALTER TABLE `tipo_h_tarea`
+  MODIFY `tip_tar_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT for table `tipo_tarea`
 --
 ALTER TABLE `tipo_tarea`
-  MODIFY `tip_tar_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `tt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `tutor_empresa`
 --

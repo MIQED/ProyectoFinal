@@ -2,6 +2,6 @@
 
 $dia = $_POST['dia'];
 
-	echo "<h1>Formulario de tareas del dia $dia</h1>";
+	echo "<p><a href='horasTareasAlumno.php?dia=$dia'>Formulario de tareas del dia $dia</a></p>";
 
  ?>

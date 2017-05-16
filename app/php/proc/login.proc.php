@@ -8,7 +8,6 @@
 	$pass = crypt($pass, 'miqed');
 
 	$sql = "SELECT * FROM alumno WHERE alu_email ='$correo' AND alu_pass='$pass'";
-
 	$alumnos = mysqli_query($conexion, $sql);
 
 	if (mysqli_num_rows($alumnos)>0){
@@ -20,7 +19,17 @@
 		header('location:../alumno.php');
 	} else {
 		
+		$sql = "SELECT * FROM tutor_escuela WHERE tut_esc_email ='$correo' AND tut_esc_pass='$pass'";
+		$tutor_escuelas = mysqli_query($conexion, $sql);
 		//Incluir login profesor y empresa
-
+		if (mysqli_num_rows($tutor_escuelas)>0){
+		while ($tutor_escuela = mysqli_fetch_object($tutor_escuelas)) {
+			$_SESSION['id'] = $tutor_escuela->tut_esc_id;
+			$_SESSION['nombre'] = $tutor_escuela->tut_esc_nombre;
+			$_SESSION['apellidos'] = $tutor_escuela->tut_esc_apellido1." ".$tutor_escuela->tut_esc_apellido2 ;
+		}
+		header('location:../tutor_escuela.php');
+	}
+	echo "Error";
 	}
 	?>
