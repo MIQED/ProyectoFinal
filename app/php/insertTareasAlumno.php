@@ -24,13 +24,27 @@
  	<script type="text/javascript">
  	
  	var cont;
+ 	var horasConvenio = <?php echo $horasConvenio; ?>;
 
  	function validarFormulario (){
- 		if (cont != 4){
- 			document.getElementById('advertencia').innerHTML = "Introduce un numero de horas correcto";
- 			return false;
+ 		var msg = "";
+ 		if (cont != horasConvenio){
+ 			 msg = "Introduce un numero de horas correcto <br>";
+ 		} 
+ 		if(document.getElementById('select').value != 0){
+ 			if (document.getElementById('motivo').value == "") {
+ 				msg += "Si has faltado alguna hora tienes que poner el motivo";
+ 				document.getElementById('motivo').style.borderColor = "red";
+ 			}
  		}
- 		return true;
+
+ 		if (msg != ""){
+ 			document.getElementById('advertencia').innerHTML = msg;
+ 			return false;
+ 		} else {
+ 			return true;
+ 		}
+
  	}
 
  	function limpiarButton(id){
@@ -46,6 +60,11 @@
  		totalHoras();	
  		$('#form').on('change', function(){
  			totalHoras();
+		});
+
+		$('#select').on('change', function(){
+			horasConvenio = <?php echo $horasConvenio; ?>;
+			horasConvenio = horasConvenio - this.value;
 		});
  		
  	});
@@ -85,7 +104,22 @@
  		$tipo_tar_sql = "SELECT DISTINCT tipo_h_tarea.tip_tar_id, tipo_h_tarea.tip_tar_descripcion FROM tipo_h_tarea INNER JOIN tipo_tarea ON tipo_tarea.tt_tiphtarid = tipo_h_tarea.tip_tar_id WHERE tt_cicloid = $_SESSION[ciclo]";
  		 	$tipo_tars = mysqli_query($conexion, $tipo_tar_sql);
 
- 	echo "<form id='form' action='proc/insertTareasAlumno.proc.php' method='POST' onsubmit='return validarFormulario();'>";
+ 	echo "<form id='form' action='proc/insertTareasAlumno.proc.php' method='POST' enctype='multipart/form-data' onsubmit='return validarFormulario();'>";
+
+ 	echo "<h3>Ausencia</h3>";
+ 		echo "Motivo ausencia<br>";
+ 		echo "<textarea id='motivo' type='text' name='motivo' cols='150' rows='4'></textarea><br><br>";
+ 		echo "Adjuntar fichero: <input type='file' name='fichero'/><br><br>";
+ 		echo "Numero de horas: ";
+ 			echo "<select id='select' name='falta'>";
+ 				for ($i=0; $i <= $horasConvenio ; $i++) {
+ 					if($i != 0){
+ 						echo "<option value='$i'>$i</option>";
+ 					} else{
+ 						echo "<option value='$i'>- - -</option>";
+ 					}
+ 				}
+ 			echo "</select><br><br><br>";
 
  		while ($tipo_tar = mysqli_fetch_object($tipo_tars)) {			
 
@@ -109,7 +143,8 @@
  		}
  		echo "<input type='hidden' name='totalHoras' value='$num_tareas'/>";
  		echo "<input type='hidden' name='dia' value='$dia'/>";
- 		echo "<input type='submit' name='enviar' value='Enviar'/>";
+ 		echo "<input type='submit' name='enviar' value='Guardar'/>";
+ 		echo "<input type='submit' name='enviar' value='Guardar y seguir'/>";
 
  		echo "</form>";
 

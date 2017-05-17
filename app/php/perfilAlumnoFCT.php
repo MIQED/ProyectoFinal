@@ -32,19 +32,24 @@ echo "<h1>Datos escuela</h1>";
  		 	$tipo_tars = mysqli_query($conexion, $tipo_tar_sql);
 
  		while ($tipo_tar = mysqli_fetch_object($tipo_tars)) {			
-
-	 			echo "$tipo_tar->tip_tar_descripcion<br><br>";
-
 	 			$tarea_sql = "SELECT * FROM tipo_tarea WHERE tt_tiphtarid = '$tipo_tar->tip_tar_id'";
 	 			$tareas = mysqli_query($conexion, $tarea_sql);
+	 				
+	 				echo "$tipo_tar->tip_tar_descripcion<br>";
 
 	 			while ($tarea = mysqli_fetch_object($tareas)) {
 
-	 				echo "$tarea->tt_descripcion<br>";
 
-	 				$tar_sql = "SELECT SUM(tar_duracion) FROM tarea INNER JOIN convenio INNER JOIN tarea.tar_convenioid = convenio.con_id WHERE con_alumnoid='$id' AND tar_tiptareaid = '$tarea->tt_id'";
-	 				echo "$tar_sql<br>";
+	 				$tar_sql = "SELECT SUM(tar_duracion) as horas FROM tarea INNER JOIN convenio ON tarea.tar_convenioid = convenio.con_id WHERE con_alumnoid='$id' AND tar_tiptareaid = '$tarea->tt_id'";
+	 				$tars = mysqli_query($conexion, $tar_sql);
 
+	 				while($tar = mysqli_fetch_object($tars)){
+	 					if ($tar->horas != null){	
+	 						echo "<p>$tarea->tt_descripcion<b>$tar->horas</b></p>";
+	 					} else {
+	 						echo "<p>$tarea->tt_descripcion<b>0</b></p>";
+	 					}
+	 				}
 	 	
 	 			}
 	 			echo "<br><br>";

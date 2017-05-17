@@ -17,6 +17,22 @@ session_start();
 		$convenio_id = $convenio->con_id;
 	}
 
+
+	$fichero = $_FILES['fichero']['name'];
+
+	if ($fichero!=""){
+
+	$ext = strstr($fichero, '.'); 
+	$fichero = "img_".$dia."_".$_SESSION['id'].$ext;
+				
+	if(!file_exists("../../ausencias")){
+						mkdir('../../ausencias', 0777, true);
+	} 
+
+		move_uploaded_file($_FILES['fichero']['tmp_name'], "../../ausencias/".$fichero);
+		$fichero_sql = "UPDATE `ausencia` SET `aus_fichero` = '$fichero' WHERE fecha = '$dia' AND aus_convenioid='$convenio_id'";
+	}
+
 	$delete ="DELETE FROM tarea WHERE tar_fecha = '$dia'";
 	mysqli_query($conexion, $delete);
 
