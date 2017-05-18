@@ -1,0 +1,329 @@
+/*Colores*/
+@colorall: orange;
+@colheader: #A3E4D7;
+@colheadhover: #48C9B0;
+
+/*Medidas*/
+@100: 100%;
+@pad_mayoria: 2%;
+
+/*fuentes*/
+@fprin: "Berlin Sans FB";
+
+html, body {
+	width: @100;
+	height: @100;
+	color: black;
+}
+.all {
+	height: @100;
+}
+header {
+	background-color:@colheader;
+	height: 15%;
+	width: @100;
+	font-size: 15px;
+	border-bottom: 7px dotted @colheadhover;
+}
+.logo {
+	padding: @pad_mayoria;
+	float: left;
+
+	a, a:active{
+		background-color:@colheader;
+	}
+}
+
+.divmenu {
+	height: 100%;
+	position: relative;
+}
+.menu {
+	width: @100;
+	text-align: center;
+	padding: @pad_mayoria;
+	font-size: 20px;
+	position: absolute;
+	bottom: 0;
+
+	a, a:hover {
+		color: black;
+		text-decoration: none;
+	}
+}
+	.menu:hover {
+		background-color: yellow;
+		cursor: pointer;
+	}
+.app {
+	background-color:#D6EAF8;
+	height: 85%;
+	width: @100;
+	padding: 5%;
+	text-align: center;
+}
+.logoapp{
+	width: 50%;
+}
+.form-app{
+	padding: @pad_mayoria;
+	vertical-align: middle;
+	height: 500px;
+}
+.input-app{
+	text-align: center;
+	padding: @pad_mayoria;
+	margin: @pad_mayoria;
+	border: 2px solid @colheadhover;
+}
+.img-slider{
+	width: 40%;
+}
+
+/*menu*/
+header nav {
+	width:90%;
+	max-width:1000px;
+	margin:20px auto;
+	background:@colheader;
+}
+
+.menu_bar {
+	display:none;
+}
+
+header nav ul {
+	overflow:hidden;
+	list-style:none;
+}
+
+header nav ul li {
+	float:left;
+}
+
+header nav ul li a {
+	color:black;
+	padding:20px;
+	display:block;
+	text-decoration:none;
+	text-align: center;
+}
+
+
+header nav ul li a:hover {
+	background:@colheadhover;
+	text-decoration: none;
+	color: white;
+	border-radius: 10px;
+
+}
+
+header nav ul li a:focus, a:active {
+	background:@colheadhover;
+	text-decoration: none;
+	color: white;
+	border-radius: 10px;
+}
+
+section {
+	padding:20px;
+}
+/*fin menu*/
+
+.carousel {
+	width: 50%;
+}
+.slider {
+	height: 35%;
+}
+.empresa {
+	width: @100;
+	height: 50%;
+	/*padding: (@pad_mayoria)+3;*/
+	/*background-color: red;*/
+
+	.empresa-texto{
+		text-align: center;
+		padding: @pad_mayoria;
+		font-size: 18px;
+	}
+}
+.trabajos {
+	width: @100;
+	height: 65%;
+	/*background-color: gçreen;*/
+
+	.info-tra{
+		text-align: center;
+		/*font-family: @fprin;*/
+		font-size: 20px;
+		font-weight: 300;
+		margin-bottom: 2%;
+		padding: @pad_mayoria;
+	}
+}
+
+.titulo {
+	font-family: @fprin;
+	font-weight: 300;
+	font-size: 30px;
+	text-align: center;
+	background-color: @colheader;
+	color: white;
+	border-left: 15px dotted @colheadhover;
+	border-right: 15px dotted @colheadhover;
+	padding: (@pad_mayoria)-1.5;
+	margin-bottom: @pad_mayoria;
+}
+
+
+/*.content-tra{
+	text-align: center;
+}*/
+
+.grow:hover {
+	/*text-align: center;*/
+	transition:all 0.3s ease;
+	-webkit-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	transform: scale(1.1);
+}
+
+.img-tra{
+	width: 100%;
+}
+
+.caption{
+	text-align: center;
+	font-family: @fprin;
+	font-weight: 300;
+	font-size: 20px;
+}
+.bg-app {
+	width: 100%;
+	border: 5px solid @colheadhover;
+	float: left;
+}
+.login {
+	background-color: yellow;
+	margin: auto;
+}
+.login-text{
+	font-family: @fprin;
+	font-weight: 300;
+	font-size: 40px;
+	color: @colheadhover;
+}
+.contacto{
+	height: 30%;
+	/*background-color: green;*/
+	margin-top: @pad_mayoria;
+	text-align: center;
+	.social-media{
+		color: @colheadhover;
+		font-size: 20px;
+		
+		a {
+			color: @colheadhover;
+		}
+		a:active {
+			background-color: white;
+		}
+		a:hover {
+			color: @colheader;
+		}
+	}
+	
+	.info-contacto{
+		margin-top: 10%;
+		margin-bottom: 15%;
+
+		.mail {
+		font-family: @fprin;
+		font-weight: 300;
+		font-size: 20px;
+		color: @colheadhover;
+		}
+	}
+}
+footer {
+	height: 10%;
+	text-align: center;
+	padding: 2%;
+	background-color: @colheadhover;
+	color: white;
+}
+@media screen and (max-height: 600px){
+	.empresa {
+		height: 90%;
+	}
+}
+@media screen and (max-width:1000px ) {
+	.app{
+		height:85%;
+	}
+	header{
+		height: 17%;
+	}
+	header nav {
+		width:100%;
+		height:187px;
+		left:-100%;
+		margin:0;
+		position: absolute;
+				z-index: 1000;
+	}
+
+	header nav ul li {
+		display:block;
+		float:none;
+		border-bottom:1px solid rgba(255,255,255, .3);
+	}
+
+	.menu_bar {
+		display:block;
+		width:100%;
+		background:black;
+	}
+
+	.menu_bar .bt-menu {
+		display:block;
+		padding:20px;
+		background:@colheader;
+		color:black;
+		text-decoration:none;
+		font-weight: bold;
+		font-size:22px;
+		-webkit-box-sizing:border-box;
+		-moz-box-sizing:border-box;
+		box-sizing:border-box;
+
+	}
+	.logoapp{
+		width: 50%;
+	}
+	.img-slider{
+		width: 100%;
+	}
+	.empresa {
+
+		height: 80%;
+
+	}
+	.titulo {
+		font-size: 30px;
+	}
+	.img-tra {
+		width: 30%;
+		margin: auto;
+	}
+	.trabajos {
+		height: 130%;
+	}
+	.contacto {
+		height: 40%;
+	}
+	footer {
+		padding: 3%;
+	}
+}
