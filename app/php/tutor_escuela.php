@@ -1,6 +1,7 @@
 <?php 
 session_start();
 
+unset($_SESSION["al"]);
 echo "$_SESSION[nombre]";
  ?> 
  <!DOCTYPE html>

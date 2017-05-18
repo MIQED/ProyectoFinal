@@ -4,7 +4,7 @@
 
 	$alu = $_POST["alumno"];
 
-	$sql = "SELECT * FROM alumno WHERE alu_nombre LIKE '%$alu%' OR alu_apellido1 LIKE '%$alu%' OR alu_apellido2 LIKE '%$alu%' OR alu_dni LIKE '%$alu%'";
+	$sql = "SELECT * FROM alumno INNER JOIN ciclo ON ciclo.cic_id = alumno.alu_cicloid WHERE (alu_nombre LIKE '%$alu%' OR alu_apellido1 LIKE '%$alu%' OR alu_apellido2 LIKE '%$alu%' OR alu_dni LIKE '%$alu%') AND cic_tutescid = $_SESSION[id]";
 
 	$alumnos = mysqli_query($conexion, $sql);
 
@@ -14,12 +14,14 @@
 				echo "<th>DNI</th>";
 				echo "<th>Nombre</th>";
 				echo "<th>Apellidos</th>";
+				echo "<td></td>";
 			echo "</tr>";
 			while($alumno = mysqli_fetch_object($alumnos)){
 				echo "<tr>";
 					echo "<td>$alumno->alu_dni</td>";
 					echo "<td>$alumno->alu_nombre</td>";
 					echo "<td>$alumno->alu_apellido1 $alumno->alu_apellido2</td>";
+					echo "<td><a href='verAlumno.php?al=$alumno->alu_id'>Ver</a></td>";
 				echo "</tr>";
 			}
 		echo "</table>";

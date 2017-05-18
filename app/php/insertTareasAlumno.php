@@ -15,6 +15,16 @@
 	$num_tareas = mysqli_query($conexion, $num_tareas_sql);
 	$num_tareas = mysqli_num_rows($num_tareas);
 
+	$day = date("d");
+	$mes  = date("m");
+	$ano = date('Y');
+
+		if (strstr($mes, '0')){
+			$mes = substr($mes, -1);
+		}	
+
+$hoy = "$day/$mes/$ano";
+
  ?>
  <!DOCTYPE html>
  <html>
@@ -143,9 +153,12 @@
  		}
  		echo "<input type='hidden' name='totalHoras' value='$num_tareas'/>";
  		echo "<input type='hidden' name='dia' value='$dia'/>";
- 		echo "<input type='submit' name='enviar' value='Guardar'/>";
- 		echo "<input type='submit' name='enviar' value='Guardar y seguir'/>";
-
+ 		if ($hoy >= $dia){
+ 			echo "<input type='submit' name='enviar' value='Guardar'/>";
+ 		}
+ 		if ($hoy > $dia){
+ 			echo "<input type='submit' name='enviar' value='Guardar y seguir'/>";
+ 		}
  		echo "</form>";
 
  	 ?>
