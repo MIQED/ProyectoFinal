@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2017 at 07:29 PM
+-- Generation Time: May 19, 2017 at 07:40 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.6
 
@@ -53,7 +53,8 @@ CREATE TABLE `alumno` (
 --
 
 INSERT INTO `alumno` (`alu_id`, `alu_nombre`, `alu_apellido1`, `alu_apellido2`, `alu_sexo`, `alu_fecha_n`, `alu_dni`, `alu_ss`, `alu_telf`, `alu_direccion`, `alu_pais`, `alu_cp`, `alu_observaciones`, `alu_curso`, `alu_email`, `alu_pass`, `alu_cicloid`) VALUES
-(1, 'a', 'a', 'a', 'Hombre', '2017-05-09', '123456789', 12, 1, 'sdsasdasda', 'wdeqa', 1, 'ddwqdwqdq', 'Segundo', 'a@gmail.com', 'miuMRKK8xhs3M', 1);
+(1, 'Granjero', 'Busca', 'Esposa', 'Hombre', '2017-05-09', '123456789', 12, 1, 'sdsasdasda', 'wdeqa', 1, 'ddwqdwqdq', 'Segundo', 'a@gmail.com', 'miuMRKK8xhs3M', 1),
+(2, 'B', 'ADSA', 'ASDADA', 'Mujer', '2017-05-18', '235235', 35353, 23, 'Hola que hase', 'Espain', 23408, 'KOLA', 'Primero', 'b@gmail.com', 'miuMRKK8xhs3M', 1);
 
 -- --------------------------------------------------------
 
@@ -63,12 +64,20 @@ INSERT INTO `alumno` (`alu_id`, `alu_nombre`, `alu_apellido1`, `alu_apellido2`, 
 
 CREATE TABLE `ausencia` (
   `aus_id` int(11) NOT NULL,
-  `aus_fichero` varchar(200) NOT NULL,
+  `aus_fichero` varchar(200) DEFAULT NULL,
   `aus_motivo` text NOT NULL,
   `aus_horas` int(1) NOT NULL,
   `fecha` date NOT NULL,
   `aus_convenioid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ausencia`
+--
+
+INSERT INTO `ausencia` (`aus_id`, `aus_fichero`, `aus_motivo`, `aus_horas`, `fecha`, `aus_convenioid`) VALUES
+(10, 'hola.docx', 'sadadsad', 2, '2017-05-16', 1),
+(11, NULL, 'Iba en patinete y me ha atropellado un coche saliendo del parkin, pido la baja no CS chao besis', 4, '2017-05-10', 1);
 
 -- --------------------------------------------------------
 
@@ -90,7 +99,7 @@ CREATE TABLE `ciclo` (
 --
 
 INSERT INTO `ciclo` (`cic_id`, `cic_nombre`, `cic_grado`, `cic_horas`, `cic_escuelaid`, `cic_tutescid`) VALUES
-(1, 'Desarrollo de aplicaciones web (DAW)', 'Superior', 4, 1, 1);
+(1, 'Desarrollo de aplicaciones web (DAW)', 'Superior', 317, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -109,7 +118,8 @@ CREATE TABLE `convenio` (
 --
 
 INSERT INTO `convenio` (`con_id`, `con_alumnoid`, `con_empresaid`) VALUES
-(1, 1, 1);
+(1, 1, 1),
+(2, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -161,6 +171,8 @@ CREATE TABLE `horario_convenio` (
   `hr_dias_semana` int(1) NOT NULL,
   `hr_hora_inicio` time NOT NULL,
   `hr_hora_final` time NOT NULL,
+  `hr_dia_inicio` date NOT NULL,
+  `hr_dia_final` date NOT NULL,
   `hr_convenioid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -168,8 +180,9 @@ CREATE TABLE `horario_convenio` (
 -- Dumping data for table `horario_convenio`
 --
 
-INSERT INTO `horario_convenio` (`hr_id`, `hr_dias_semana`, `hr_hora_inicio`, `hr_hora_final`, `hr_convenioid`) VALUES
-(1, 5, '09:00:00', '13:00:00', 1);
+INSERT INTO `horario_convenio` (`hr_id`, `hr_dias_semana`, `hr_hora_inicio`, `hr_hora_final`, `hr_dia_inicio`, `hr_dia_final`, `hr_convenioid`) VALUES
+(1, 5, '09:00:00', '13:00:00', '2017-03-22', '2017-06-22', 1),
+(2, 5, '15:00:00', '20:00:00', '2017-03-31', '2017-06-05', 2);
 
 -- --------------------------------------------------------
 
@@ -195,11 +208,18 @@ INSERT INTO `tarea` (`tar_id`, `tar_duracion`, `tar_nota_tutor`, `tar_fecha`, `t
 (10, 1, NULL, '2017-05-11', 1, 2),
 (11, 1, NULL, '2017-05-11', 1, 6),
 (12, 4, NULL, '2017-05-02', 1, 7),
-(13, 2, NULL, '2017-05-01', 1, 7),
-(14, 2, NULL, '2017-05-01', 1, 8),
 (23, 1, NULL, '2017-05-03', 1, 1),
 (24, 2, NULL, '2017-05-03', 1, 4),
-(25, 1, NULL, '2017-05-03', 1, 6);
+(25, 1, NULL, '2017-05-03', 1, 6),
+(26, 1, NULL, '2017-05-01', 1, 1),
+(27, 1, NULL, '2017-05-01', 1, 4),
+(28, 2, NULL, '2017-05-01', 1, 8),
+(29, 4, NULL, '2017-05-15', 1, 1),
+(31, 4, NULL, '2017-05-04', 1, 9),
+(38, 2, NULL, '2017-05-16', 1, 5),
+(39, 4, NULL, '2017-05-05', 1, 3),
+(40, 4, NULL, '2017-05-08', 1, 21),
+(41, 4, NULL, '2017-05-12', 1, 7);
 
 -- --------------------------------------------------------
 
@@ -285,7 +305,7 @@ CREATE TABLE `tutor_empresa` (
 --
 
 INSERT INTO `tutor_empresa` (`tut_emp_id`, `tut_emp_nombre`, `tut_emp_apellido1`, `tut_emp_apellido2`, `tut_emp_email`, `tut_emp_pass`, `tut_emp_telf`, `tut_emp_empresaid`) VALUES
-(1, 'Nombre', 'Ape', 'Llido', 'napellido@gmail.com', '1234', 123456789, 1);
+(1, 'Nombre', 'Ape', 'Llido', 'napellido@gmail.com', 'miuMRKK8xhs3M', 123456789, 1);
 
 -- --------------------------------------------------------
 
@@ -309,6 +329,19 @@ CREATE TABLE `tutor_escuela` (
 
 INSERT INTO `tutor_escuela` (`tut_esc_id`, `tut_esc_nombre`, `tut_esc_apellido1`, `tut_esc_apellido2`, `tut_esc_email`, `tut_esc_pass`, `tut_esc_telf`) VALUES
 (1, 'Pedro', 'Blanco', 'Asecas', 'pblanco@fje.edu', 'miuMRKK8xhs3M', 123456789);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `validacion`
+--
+
+CREATE TABLE `validacion` (
+  `val_id` int(11) NOT NULL,
+  `val_validado` enum('0','1','2','') DEFAULT NULL,
+  `val_mes` int(2) NOT NULL,
+  `val_convenioid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
@@ -387,6 +420,12 @@ ALTER TABLE `tutor_escuela`
   ADD PRIMARY KEY (`tut_esc_id`);
 
 --
+-- Indexes for table `validacion`
+--
+ALTER TABLE `validacion`
+  ADD PRIMARY KEY (`val_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -394,12 +433,12 @@ ALTER TABLE `tutor_escuela`
 -- AUTO_INCREMENT for table `alumno`
 --
 ALTER TABLE `alumno`
-  MODIFY `alu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `alu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `ausencia`
 --
 ALTER TABLE `ausencia`
-  MODIFY `aus_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `aus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `ciclo`
 --
@@ -409,7 +448,7 @@ ALTER TABLE `ciclo`
 -- AUTO_INCREMENT for table `convenio`
 --
 ALTER TABLE `convenio`
-  MODIFY `con_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `con_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `empresa`
 --
@@ -424,12 +463,12 @@ ALTER TABLE `escuela`
 -- AUTO_INCREMENT for table `horario_convenio`
 --
 ALTER TABLE `horario_convenio`
-  MODIFY `hr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `hr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tarea`
 --
 ALTER TABLE `tarea`
-  MODIFY `tar_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `tar_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT for table `tipo_h_tarea`
 --
@@ -450,6 +489,11 @@ ALTER TABLE `tutor_empresa`
 --
 ALTER TABLE `tutor_escuela`
   MODIFY `tut_esc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `validacion`
+--
+ALTER TABLE `validacion`
+  MODIFY `val_id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

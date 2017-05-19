@@ -25,7 +25,7 @@ session_start();
 	if ($fichero!="" && $falta != 0){
 
 	$ext = strstr($fichero, '.'); 
-	$fichero = "img_".$dia."_".$_SESSION['id'].$ext;
+	$fichero = "".$dia."_".$_SESSION['id'].$ext;
 				
 	if(!file_exists("../../ausencias")){
 						mkdir('../../ausencias', 0777, true);
@@ -74,10 +74,8 @@ for ($i=0; $i <= $totalHoras; $i++) {
 				$newDate = date("j/n/Y", strtotime($nuevafecha));
 				$contador++;
 			}
-		// }
+	 }
 
 		header("location:../insertTareasAlumno.php?dia=$newDate");
 
 	}
-
-?>

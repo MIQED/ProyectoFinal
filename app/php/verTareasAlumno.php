@@ -30,6 +30,7 @@
 		 			
 			 	$motivo = $ausencia->aus_motivo;
 		 		$horas	= $ausencia->aus_horas;
+		 		$file = $ausencia->aus_fichero;
 		 		$horasAusencia = $horasAusencia - $horas;
 		 		}
 		 	}
@@ -83,7 +84,7 @@ o 	$('#contador').html('<h3>Total de horas: '+cont+'</h3>');
  			echo "<h3>Ausencia</h3>";
 	 		echo "Motivo ausencia<br>";
 	 		echo "$motivo<br><br>";
-	 		echo "Adjuntar fichero: <input type='file' name='fichero'/><br><br>";
+	 		echo "<a href='../ausencias/$file'>Descargar justificante</a><br><br>";
 			echo "Numero de horas: $horas<br><br><br>";
 		 	}
 

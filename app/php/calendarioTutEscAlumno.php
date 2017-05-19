@@ -2,6 +2,19 @@
 include '../../bd_con/conexion.php';
 session_start();
 
+$convenio_sql = "SELECT * FROM convenio WHERE con_alumnoid = $_SESSION[al]";
+$convenios = mysqli_query($conexion, $convenio_sql);
+while ($convenio = mysqli_fetch_object($convenios)) {
+	$convenioid = $convenio->con_id;
+}
+
+$inicio_fin_sql = "SELECT * FROM horario_convenio WHERE hr_convenioid='$convenioid'";
+$inicio_fin_s = mysqli_query($conexion, $inicio_fin_sql);
+while ($inicio_fin = mysqli_fetch_object($inicio_fin_s)) {
+	$inicio = $inicio_fin->hr_dia_inicio;
+	$fin = $inicio_fin->hr_dia_final;
+}
+
 $showmonth = $_POST['showmonth'];
 $showyear=$_POST['showyear'];
 
@@ -66,13 +79,24 @@ for ($i=1; $i<=$day_count ; $i++) {
 
 	$dia_completo_sql = "SELECT * FROM tarea INNER JOIN convenio ON convenio.con_id = tarea.tar_convenioid WHERE con_alumnoid = $_SESSION[al] AND tar_fecha = '$dia_t'";
 	$dia_completos = mysqli_query($conexion, $dia_completo_sql);
-
 	if (mysqli_num_rows($dia_completos)>0) {
 			$color = "background-color:yellow;";
-			$update = "update";
-			}
+			$update = "update";			
+		}
+
+	$ausencia_sql = "SELECT * FROM ausencia WHERE fecha = '$dia_t' AND aus_convenioid='$convenioid'";
+	$ausencias = mysqli_query($conexion, $ausencia_sql);
+	if(mysqli_num_rows($ausencias)>0){
+		$color = "background-color:red;";
+	}
 
 	$time = "$showyear/$showmonth/$i";
+	if ($dia_t<$inicio || $dia_t>$fin) {
+		$color = "background-color:aqua;";
+		if(date('w', strtotime($time)) != 6 && date('w', strtotime($time)) != 0) {
+		$dh--;
+		}
+	}
 
 	if(date('w', strtotime($time)) == 6 || date('w', strtotime($time)) == 0) {
 		$estilo = "background-color:#ccc;";
@@ -83,12 +107,7 @@ for ($i=1; $i<=$day_count ; $i++) {
 	}
 		
 		if(isset($estilo)){
-			$div = "<div class='cal_day' style='$estilo";
-			if(isset($color)){
-				$div .= "$color";
-			}
-			$div .= "'>";
-			echo "$div";
+			echo "<div class='cal_day' style='$estilo'>";
 			?>
 			<div class="day_heading"><?php echo "$i"?></div>
 		<?php	
@@ -144,8 +163,4 @@ if ($post_days != 0) {
 		echo "<diV class='non_cal_day'></div>";
 	}
 }
-
-
-
-echo "$dh";
  ?>

@@ -23,7 +23,7 @@ session_start();
 	if ($fichero!=""){
 
 	$ext = strstr($fichero, '.'); 
-	$fichero = "img_".$dia."_".$_SESSION['id'].$ext;
+	$fichero = "".$dia."_".$_SESSION['id'].$ext;
 				
 	if(!file_exists("../../ausencias")){
 						mkdir('../../ausencias', 0777, true);

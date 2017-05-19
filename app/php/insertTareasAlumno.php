@@ -104,6 +104,7 @@ $hoy = "$day/$mes/$ano";
  </head>
  <script type="text/javascript"></script>
  <body>
+  <a href="alumno.php">Volver al calendario</a>
  	<?php 
  		echo "<h1>Tareas dia $dia</h1>";
 

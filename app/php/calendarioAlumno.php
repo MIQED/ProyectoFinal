@@ -5,6 +5,13 @@ session_start();
 $showmonth = $_POST['showmonth'];
 $showyear=$_POST['showyear'];
 
+	$inicio_fin_sql = "SELECT * FROM horario_convenio WHERE hr_convenioid='$_SESSION[convenio]'";
+	$inicio_fin_s = mysqli_query($conexion, $inicio_fin_sql);
+	while ($inicio_fin = mysqli_fetch_object($inicio_fin_s)) {
+		$inicio = $inicio_fin->hr_dia_inicio;
+		$fin = $inicio_fin->hr_dia_final;
+	}
+
 $day_count = cal_days_in_month(CAL_GREGORIAN, $showmonth, $showmonth);
 $pre_days = date('w', mktime(0, 0, 0, $showmonth, 0, $showyear));
 $post_days = (7 - (date('w', mktime(0, 0, 0, $showmonth, $day_count, $showyear))));
@@ -64,6 +71,12 @@ for ($i=1; $i<=$day_count ; $i++) {
 			$update = "update";
 			}
 
+		$ausencia_sql = "SELECT * FROM ausencia WHERE fecha = '$dia_t' AND aus_convenioid = $_SESSION[convenio]";
+		$ausencias = mysqli_query($conexion, $ausencia_sql);
+		if(mysqli_num_rows($ausencias)>0){
+			$color = "background-color:red;";
+		}
+
 	$time = "$showyear/$showmonth/$i";
 
 	if(date('w', strtotime($time)) == 6 || date('w', strtotime($time)) == 0) {
@@ -73,14 +86,14 @@ for ($i=1; $i<=$day_count ; $i++) {
 	if ($dia == $hoy) {
 		$color = "background-color:green;";
 	}
+
+	if ($dia_t<$inicio || $dia_t>$fin) {
+		$color = "background-color:aqua;";
+	}
 		
 		if(isset($estilo)){
-			$div = "<div class='cal_day' style='$estilo";
-			if(isset($color)){
-				$div .= "$color";
-			}
-			$div .= "'>";
-			echo "$div";
+			echo "<div class='cal_day' style='$estilo'>";
+
 			?>
 			<div class="day_heading"><?php echo "$i"?></div>
 		<?php	

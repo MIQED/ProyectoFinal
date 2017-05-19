@@ -1,8 +1,16 @@
-<?php 
-
+<?php 	
 include '../../bd_con/conexion.php';
 session_start();
 $id = $_SESSION['id'];
+
+$horas_sql = "SELECT SUM(tar_duracion) as horas_ciclo, cic_horas FROM ciclo INNER JOIN tipo_tarea ON tipo_tarea.tt_cicloid = ciclo.cic_id INNER JOIN tarea ON tarea.tar_tiptareaid = tipo_tarea.tt_id WHERE cic_id = $_SESSION[ciclo] AND tar_convenioid = $_SESSION[convenio] ";
+$horas_ciclos = mysqli_query($conexion, $horas_sql);
+while ($horas_ciclo = mysqli_fetch_object($horas_ciclos)) {
+	echo "<p><b>Total horas</b>: $horas_ciclo->cic_horas</p>";
+	echo "<p><b>Horas realizadas</b>: $horas_ciclo->horas_ciclo</p>";
+	$horasRestantes = $horas_ciclo->cic_horas - $horas_ciclo->horas_ciclo;
+	echo "<p><b>Horas restantes</b>: $horasRestantes</p>";
+}
 
 echo "<h1>Datos escuela</h1>";
 	$escuelas_sql = "SELECT * FROM tutor_escuela INNER JOIN ciclo on ciclo.cic_tutescid = tutor_escuela.tut_esc_id WHERE cic_id = $_SESSION[ciclo] ";
