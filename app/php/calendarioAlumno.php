@@ -11,10 +11,27 @@ $showyear=$_POST['showyear'];
 		$inicio = $inicio_fin->hr_dia_inicio;
 		$fin = $inicio_fin->hr_dia_final;
 	}
+	echo "$inicio----$fin <br>";
 
 $day_count = cal_days_in_month(CAL_GREGORIAN, $showmonth, $showmonth);
 $pre_days = date('w', mktime(0, 0, 0, $showmonth, 0, $showyear));
 $post_days = (7 - (date('w', mktime(0, 0, 0, $showmonth, $day_count, $showyear))));
+
+$dh=0;
+for ($i=1; $i <= $day_count ; $i++) { 
+	$time = "$i/$showmonth/$showyear";
+	$time = str_replace('/', '-', $time);
+	$time = date('Y-m-d', strtotime($time));
+	if(date('w', strtotime($time)) != 6 && date('w', strtotime($time)) != 0 && $time >= $inicio && $time <= $fin) {
+		$dh++;
+	}
+}
+echo "$dh<br>";
+$month = date('m', strtotime($time));
+
+$validar_sql = "SELECT DISTINCT tar_fecha FROM tarea WHERE MONTH(tar_fecha) = $month";
+$validar = mysqli_query($conexion, $validar_sql);
+echo mysqli_num_rows($validar);
 
 $day = date("d");
 $mes  = date("m");
