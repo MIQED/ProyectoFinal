@@ -11,7 +11,6 @@ $showyear=$_POST['showyear'];
 		$inicio = $inicio_fin->hr_dia_inicio;
 		$fin = $inicio_fin->hr_dia_final;
 	}
-	echo "$inicio----$fin <br>";
 
 $day_count = cal_days_in_month(CAL_GREGORIAN, $showmonth, $showmonth);
 $pre_days = date('w', mktime(0, 0, 0, $showmonth, 0, $showyear));
@@ -26,12 +25,22 @@ for ($i=1; $i <= $day_count ; $i++) {
 		$dh++;
 	}
 }
-echo "$dh<br>";
+
 $month = date('m', strtotime($time));
 
 $validar_sql = "SELECT DISTINCT tar_fecha FROM tarea WHERE MONTH(tar_fecha) = $month";
 $validar = mysqli_query($conexion, $validar_sql);
-echo mysqli_num_rows($validar);
+if (mysqli_num_rows($validar)==$dh){
+	$validator = "validar";
+	$verficar_sql = "SELECT * FROM validacion 	WHERE val_mes = $month AND val_convenioid = '$_SESSION[convenio]'";
+	$verificar = mysqli_query($conexion, $verficar_sql);
+	if(mysqli_num_rows($verificar)==0){
+		
+		$insert = "INSERT INTO `validacion` (`val_id`, `val_validado`, `val_mes`, `val_convenioid`) VALUES (NULL, '0', $month, '$_SESSION[convenio]')";
+		mysqli_query($conexion, $insert);
+	}
+	
+}
 
 $day = date("d");
 $mes  = date("m");
@@ -54,6 +63,10 @@ echo "</div>";
 
 
 echo "<br><br><br><br>";
+if(isset($validator)){
+	echo "<p><a href='verValidacion.php'>Ver validacion</a></p>";
+}
+
 echo "<div class='week_days'>";
 	echo "<div class='days_of_week'>Lunes</div>";
 	echo "<div class='days_of_week'>Martes</div>";

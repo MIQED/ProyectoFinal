@@ -19,11 +19,9 @@
 	$mes  = date("m");
 	$ano = date('Y');
 
-		if (strstr($mes, '0')){
-			$mes = substr($mes, -1);
-		}	
 
-$hoy = "$day/$mes/$ano";
+$hoy = "$day-$mes-$ano";
+$hoy = date('Y-m-d', strtotime($hoy));
 
  ?>
  <!DOCTYPE html>
@@ -154,6 +152,8 @@ $hoy = "$day/$mes/$ano";
  		}
  		echo "<input type='hidden' name='totalHoras' value='$num_tareas'/>";
  		echo "<input type='hidden' name='dia' value='$dia'/>";
+ 		$dia = str_replace('/', '-', $dia);
+		$dia = date('Y-m-d', strtotime($dia));
  		if ($hoy >= $dia){
  			echo "<input type='submit' name='enviar' value='Guardar'/>";
  		}

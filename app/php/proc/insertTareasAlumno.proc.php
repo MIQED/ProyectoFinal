@@ -42,7 +42,6 @@ session_start();
 		$ausencia_sql = "INSERT INTO `ausencia` (`aus_id`, `aus_fichero`, `aus_motivo`, `aus_horas`, `fecha`, `aus_convenioid`) VALUES (NULL, $fichero, '$motivo', '$falta', '$dia', '$convenio_id')";
 		mysqli_query($conexion, $ausencia_sql);
 		if($falta == 4){
-			$sql = "INSERT INTO `tarea` (`tar_id`, `tar_duracion`, `tar_nota_tutor`, `tar_fecha`, `tar_convenioid`, `tar_tiptareaid`) VALUES (NULL, '0', NULL, '$dia', '$convenio_id', NULL)";
 			mysqli_query($conexion, $sql);
 		}
 	}
@@ -51,7 +50,7 @@ for ($i=0; $i <= $totalHoras; $i++) {
 
 		if (isset($_POST[''.$i.''])){
 			$horasTarea = $_POST[''.$i.''];
-			$sql = "INSERT INTO `tarea` (`tar_id`, `tar_duracion`, `tar_nota_tutor`, `tar_fecha`, `tar_convenioid`, `tar_tiptareaid`) VALUES (NULL, '$horasTarea', NULL, '$dia', '$convenio_id', '$i')";
+			$sql = "INSERT INTO `tarea` (`tar_id`, `tar_duracion`,  `tar_fecha`, `tar_convenioid`, `tar_tiptareaid`) VALUES (NULL, '$horasTarea', '$dia', '$convenio_id', '$i')";
 
 			mysqli_query($conexion, $sql);
 		}
