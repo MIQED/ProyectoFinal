@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2017 at 02:12 PM
--- Server version: 10.1.16-MariaDB
--- PHP Version: 5.6.24
+-- Generation Time: May 23, 2017 at 07:15 PM
+-- Server version: 10.1.13-MariaDB
+-- PHP Version: 7.0.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -68,16 +68,17 @@ CREATE TABLE `ausencia` (
   `aus_motivo` text NOT NULL,
   `aus_horas` int(1) NOT NULL,
   `fecha` date NOT NULL,
-  `aus_convenioid` int(11) NOT NULL
+  `aus_convenioid` int(11) NOT NULL,
+  `aus_visto` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ausencia`
 --
 
-INSERT INTO `ausencia` (`aus_id`, `aus_fichero`, `aus_motivo`, `aus_horas`, `fecha`, `aus_convenioid`) VALUES
-(10, 'hola.docx', 'sadadsad', 2, '2017-05-16', 1),
-(12, NULL, 'porque si', 4, '2017-05-10', 1);
+INSERT INTO `ausencia` (`aus_id`, `aus_fichero`, `aus_motivo`, `aus_horas`, `fecha`, `aus_convenioid`, `aus_visto`) VALUES
+(10, 'hola.docx', 'sadadsad  as das da sd sasd as da sd as da sd asd as da sda sd ad asd asd as da sda ', 2, '2017-05-16', 1, 1),
+(12, NULL, 'porque si', 4, '2017-05-10', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -373,16 +374,20 @@ CREATE TABLE `validacion` (
   `val_id` int(11) NOT NULL,
   `val_validado` enum('0','1','2','') DEFAULT NULL,
   `val_mes` int(2) NOT NULL,
-  `val_convenioid` int(11) NOT NULL
+  `val_convenioid` int(11) NOT NULL,
+  `val_observacionEmp` text,
+  `val_observacionEsc` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `validacion`
 --
 
-INSERT INTO `validacion` (`val_id`, `val_validado`, `val_mes`, `val_convenioid`) VALUES
-(15, '2', 4, 1),
-(18, '0', 3, 1);
+INSERT INTO `validacion` (`val_id`, `val_validado`, `val_mes`, `val_convenioid`, `val_observacionEmp`, `val_observacionEsc`) VALUES
+(15, '2', 4, 1, '', 'Muh bien todo'),
+(18, '1', 3, 1, '', NULL),
+(19, '0', 4, 0, NULL, NULL),
+(20, '0', 3, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -470,29 +475,29 @@ INSERT INTO `validar_tarea` (`vt_id`, `vt_totalHoras`, `vt_notaEmpresa`, `vt_val
 (69, 0, NULL, 17, 21),
 (70, 0, NULL, 17, 22),
 (71, 0, NULL, 17, 23),
-(72, 4, NULL, 18, 1),
-(73, 8, NULL, 18, 2),
-(74, 0, NULL, 18, 3),
-(75, 0, NULL, 18, 4),
-(76, 0, NULL, 18, 5),
-(77, 0, NULL, 18, 6),
-(78, 0, NULL, 18, 7),
-(79, 0, NULL, 18, 8),
-(80, 0, NULL, 18, 9),
-(81, 0, NULL, 18, 10),
-(82, 0, NULL, 18, 11),
-(83, 4, NULL, 18, 12),
-(84, 4, NULL, 18, 13),
-(85, 4, NULL, 18, 14),
-(86, 0, NULL, 18, 15),
-(87, 4, NULL, 18, 16),
-(88, 4, NULL, 18, 17),
-(89, 0, NULL, 18, 18),
-(90, 0, NULL, 18, 19),
-(91, 0, NULL, 18, 20),
-(92, 0, NULL, 18, 21),
-(93, 0, NULL, 18, 22),
-(94, 0, NULL, 18, 23);
+(72, 4, 'Notable', 18, 1),
+(73, 8, 'Notable', 18, 2),
+(74, 0, 'Excelente', 18, 3),
+(75, 0, 'Notable', 18, 4),
+(76, 0, 'Suficiente', 18, 5),
+(77, 0, 'Notable', 18, 6),
+(78, 0, 'Excelente', 18, 7),
+(79, 0, 'Excelente', 18, 8),
+(80, 0, 'Excelente', 18, 9),
+(81, 0, 'Excelente', 18, 10),
+(82, 0, 'Excelente', 18, 11),
+(83, 4, 'Excelente', 18, 12),
+(84, 4, 'Excelente', 18, 13),
+(85, 4, 'Suficiente', 18, 14),
+(86, 0, 'Excelente', 18, 15),
+(87, 4, 'Excelente', 18, 16),
+(88, 4, 'Suficiente', 18, 17),
+(89, 0, 'Excelente', 18, 18),
+(90, 0, 'Excelente', 18, 19),
+(91, 0, 'Suficiente', 18, 20),
+(92, 0, 'Suficiente', 18, 21),
+(93, 0, 'Insuficiente', 18, 22),
+(94, 0, 'Suficiente', 18, 23);
 
 --
 -- Indexes for dumped tables
@@ -650,7 +655,7 @@ ALTER TABLE `tutor_escuela`
 -- AUTO_INCREMENT for table `validacion`
 --
 ALTER TABLE `validacion`
-  MODIFY `val_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `val_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `validar_tarea`
 --

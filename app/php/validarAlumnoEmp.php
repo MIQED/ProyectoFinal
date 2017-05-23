@@ -2,6 +2,7 @@
 
 	include '../../bd_con/conexion.php';
 	session_start();
+	include 'restriccion/restriccion.php';
 
 $alumnoid = $_GET['id'];
 $mes = $_GET['mes'];
@@ -97,6 +98,8 @@ echo "<div id='validar' style='color:red'></div>";
 	 			}
 	 			echo "<br><br>";
  		}
+ 		 
+
  		echo "<input type='hidden' name='alumnoid' value='$alumnoid'/>";
  		echo "<input type='hidden' name='totalHoras' value='$num_tareas'/>";
  		echo "<input type='hidden' name='mes' value='$mes'/>";

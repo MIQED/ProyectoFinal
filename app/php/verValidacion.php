@@ -2,6 +2,7 @@
 
 	include '../../bd_con/conexion.php';
 	session_start();
+	include 'restriccion/restriccion.php';
 
 $mes = $_GET['mes'];
 
@@ -45,7 +46,19 @@ $mes = $_GET['mes'];
 	}	
  ?>
 <?php 
-echo "<h1>Validacion mes de $mes</h1>";
+$meses = array('enero','febrero','marzo','abril','mayo','junio','julio',
+               'agosto','septiembre','octubre','noviembre','diciembre');
+
+if (strstr($mes, '0')){
+		$mes_0 = substr($mes, -1);
+	} else {
+		$mes_0 = $mes;
+	}
+		$mes_0 = $mes_0-1;
+
+$mes_d = $meses[$mes_0];
+
+echo "<h1>Validación mes de $mes_d</h1>";
 
 	$tipo_tar_sql = "SELECT DISTINCT tipo_h_tarea.tip_tar_id, tipo_h_tarea.tip_tar_descripcion FROM tipo_h_tarea INNER JOIN tipo_tarea ON tipo_tarea.tt_tiphtarid = tipo_h_tarea.tip_tar_id WHERE tt_cicloid = $cicloid";
  		 	$tipo_tars = mysqli_query($conexion, $tipo_tar_sql);
@@ -70,6 +83,25 @@ echo "<h1>Validacion mes de $mes</h1>";
 	 			}
 
 	 			echo "<br><br>";
+ 		}
+
+ 		$sql = "SELECT * FROM validacion WHERE val_mes='$mes' AND val_convenioid='$convenioid'";
+ 		$results = mysqli_query($conexion, $sql);
+ 		while ($result = mysqli_fetch_object($results)) {
+	 		echo "<b>Observaciones empresa</b><br>";
+	 		if ($result->val_observacionEmp != ""){
+	 			echo "<p>$result->val_observacionEmp</p>";
+	 		} else {
+	 			echo "<p>Sin observaciones</p>";
+	 		}
+	 		echo "<br>";
+
+	 		echo "<b>Observaciones esuela</b><br>";
+	 		if ($result->val_observacionEsc != ""){
+	 			echo "<p>$result->val_observacionEsc</p>";
+	 		} else {
+	 			echo "<p>Sin observaciones</p>";
+	 		}
  		}
  ?>
 </body>

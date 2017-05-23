@@ -4,6 +4,7 @@
 include '../../../bd_con/conexion.php';
 
 session_start(); 
+include '../restriccion/restriccion.proc.php';
 	
 	$enviar = $_POST['enviar'];
 	$totalHoras = $_POST['totalHoras'];
@@ -39,7 +40,7 @@ session_start();
 	}
 
 	if ($falta != 0){
-		$ausencia_sql = "INSERT INTO `ausencia` (`aus_id`, `aus_fichero`, `aus_motivo`, `aus_horas`, `fecha`, `aus_convenioid`) VALUES (NULL, $fichero, '$motivo', '$falta', '$dia', '$convenio_id')";
+		$ausencia_sql = "INSERT INTO `ausencia` (`aus_id`, `aus_fichero`, `aus_motivo`, `aus_horas`, `fecha`, `aus_convenioid`, aus_visto) VALUES (NULL, $fichero, '$motivo', '$falta', '$dia', '$convenio_id', '0')";
 		mysqli_query($conexion, $ausencia_sql);
 		if($falta == 4){
 			mysqli_query($conexion, $sql);

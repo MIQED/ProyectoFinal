@@ -2,6 +2,7 @@
 	
 	include '../../bd_con/conexion.php';
 	session_start();
+	include 'restriccion/restriccion.php';
 
 	$ciclo_sql = "SELECT * FROM alumno WHERE alu_id=$_SESSION[al]";
 	$ciclos_al = mysqli_query($conexion, $ciclo_sql);

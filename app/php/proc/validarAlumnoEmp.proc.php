@@ -2,7 +2,9 @@
 
 include '../../../bd_con/conexion.php';	
 session_start();
+include '../restriccion/restriccion.proc.php';
 
+$observacion = $_POST['observacion'];
 
 $alumnoid = $_POST['alumnoid'];
 $totalHoras = $_POST['totalHoras'];
@@ -22,7 +24,8 @@ $convenio_sql = "SELECT * FROM convenio WHERE con_alumnoid = $alumnoid";
 		mysqli_query($conexion, $sql); 
 	}
 
-	$sql = "UPDATE validacion SET val_validado='1' WHERE val_convenioid ='$convenio_id' AND val_mes = '$mes'";
+	$sql = "UPDATE validacion SET val_validado='1', val_observacionEmp='$observacion' WHERE val_convenioid ='$convenio_id' AND val_mes = '$mes'";
+	echo "$sql";
 	mysqli_query($conexion, $sql);
 
 	header('location:../tutor_empresa.php');

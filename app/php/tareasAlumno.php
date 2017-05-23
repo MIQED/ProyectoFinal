@@ -1,4 +1,6 @@
 <?php 
+session_start();
+include 'restriccion/restriccion.php';
 
 $dia = $_POST['dia'];
 $tipo = $_POST['tipo'];

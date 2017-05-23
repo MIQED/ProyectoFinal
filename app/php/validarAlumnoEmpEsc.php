@@ -2,6 +2,7 @@
 
 	include '../../bd_con/conexion.php';
 	session_start();
+	include 'restriccion/restriccion.php';
 
 $alumnoid = $_GET['id'];
 $mes = $_GET['mes'];
@@ -64,6 +65,22 @@ echo "<div id='validar' style='color:red'></div>";
 
 	 			echo "<br><br>";
  		}
+
+ 		$sql = "SELECT * FROM validacion WHERE val_mes='$mes' AND val_convenioid='$convenio_id'";
+ 		$results = mysqli_query($conexion, $sql);
+ 		while ($result = mysqli_fetch_object($results)) {
+	 		echo "<b>Observaciones empresa</b><br>";
+	 		if ($result->val_observacionEmp != ""){
+	 			echo "<p>$result->val_observacionEmp</p>";
+	 		} else {
+	 			echo "<p>Sin observaciones</p>";
+	 		}
+ 		}
+
+ 		echo "<br><br>";
+
+ 		echo "Observaciones<br>";
+ 		echo "<textarea name='observacion' cols='200' rows='7'></textarea>";
  		echo "<input type='hidden' name='alumnoid' value='$alumnoid'/>";
  		echo "<input type='hidden' name='totalHoras' value='$num_tareas'/>";
  		echo "<input type='hidden' name='mes' value='$mes'/>";

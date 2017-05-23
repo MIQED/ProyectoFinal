@@ -1,6 +1,7 @@
 <?php 	
 include '../../bd_con/conexion.php';
 session_start();
+include 'restriccion/restriccion.php';
 $id = $_SESSION['id'];
 
 $horas_sql = "SELECT SUM(tar_duracion) as horas_ciclo, cic_horas FROM ciclo INNER JOIN tipo_tarea ON tipo_tarea.tt_cicloid = ciclo.cic_id INNER JOIN tarea ON tarea.tar_tiptareaid = tipo_tarea.tt_id WHERE cic_id = $_SESSION[ciclo] AND tar_convenioid = $_SESSION[convenio] ";

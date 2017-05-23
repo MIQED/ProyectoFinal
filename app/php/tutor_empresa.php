@@ -2,6 +2,7 @@
 
 	include '../../bd_con/conexion.php';
 	session_start();
+	include 'restriccion/restriccion.php';
  ?>
  <!DOCTYPE html>
  <html>
@@ -25,6 +26,40 @@
 				})
 			});
  		});
+
+ 		function objetoAjax(){
+					var xmlhttp=false;
+					try {
+						xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+					} catch (e) {
+				 
+						try {
+							xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+						} catch (E) {
+							xmlhttp = false;
+						}
+					}
+				 
+					if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
+					  xmlhttp = new XMLHttpRequest();
+					}
+					return xmlhttp;
+				}
+
+				function enviarDatos(dato){
+				var ajax=objetoAjax();
+				var url = 'verAusenciasAlumnos.php'; 
+				  ajax.open("POST", url, true);
+				  ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				  ajax.onreadystatechange=function() {
+				  	if (ajax.readyState==4) {
+						document.getElementById('ausencias').innerHTML = ajax.responseText;
+					}
+				  }
+  				ajax.send("dato="+dato);
+				}
+
+			document.load = enviarDatos('');
  	</script>
  </head>
  <body>
@@ -59,6 +94,9 @@
 		echo "Sin alumnos por validar";
 	}
 
+
+	echo "<h1>Ausencias</h1>";
+	echo "<div id='ausencias'></div>";
 
 	 ?>
  </body>

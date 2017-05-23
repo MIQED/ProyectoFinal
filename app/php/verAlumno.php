@@ -1,5 +1,6 @@
 <?php 
 	session_start();
+	include 'restriccion/restriccion.php';
 	include '../../bd_con/conexion.php';
 
 	if (isset($_GET["al"])) {
@@ -163,11 +164,15 @@
 		echo "<h3>Alumno: $alumno->alu_nombre $alumno->alu_apellido1 $alumno->alu_apellido2</h3>";
 	}
 
+	$meses = array('enero','febrero','marzo','abril','mayo','junio','julio',
+			               'agosto','septiembre','octubre','noviembre','diciembre');
+
 	$validacion_sql = "SELECT * FROM validacion WHERE val_convenioid='$convenio_id' AND val_validado='2'";
 	$validaciones = mysqli_query($conexion, $validacion_sql);
 	if(mysqli_num_rows($validaciones)>0){
 		while ($validacion = mysqli_fetch_object($validaciones)) {
-			echo "<p><a href='verValidacion.php?mes=$validacion->val_mes'>Ver validacion mes $validacion->val_mes</a></p>";
+				$mes_d = $validacion->val_mes-1;
+			echo "<p><a href='verValidacion.php?mes=$validacion->val_mes'>Ver validación mes $meses[$mes_d]</a></p>";
 		}
 	}
  ?>

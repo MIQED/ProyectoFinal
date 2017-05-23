@@ -1,6 +1,7 @@
 <?php 
 include '../../bd_con/conexion.php';
 session_start();
+include 'restriccion/restriccion.php';
 
 $convenio_sql = "SELECT * FROM convenio WHERE con_alumnoid = $_SESSION[al]";
 $convenios = mysqli_query($conexion, $convenio_sql);
@@ -22,11 +23,25 @@ $day_count = cal_days_in_month(CAL_GREGORIAN, $showmonth, $showmonth);
 $pre_days = date('w', mktime(0, 0, 0, $showmonth, 0, $showyear));
 $post_days = (7 - (date('w', mktime(0, 0, 0, $showmonth, $day_count, $showyear))));
 
-$dh = 0;
-for ($i=1; $i<=$day_count ; $i++) { 
-	$time = "$showyear/$showmonth/$i";
-	if(date('w', strtotime($time)) != 6 && date('w', strtotime($time)) != 0) {
+$dh=0;
+for ($i=1; $i <= $day_count ; $i++) { 
+	$time = "$i/$showmonth/$showyear";
+	$time = str_replace('/', '-', $time);
+	$time = date('Y-m-d', strtotime($time));
+	if(date('w', strtotime($time)) != 6 && date('w', strtotime($time)) != 0 && $time >= $inicio && $time <= $fin) {
 		$dh++;
+	}
+}
+
+$month = date('m', strtotime($time));
+
+$validar_sql = "SELECT DISTINCT tar_fecha FROM tarea WHERE MONTH(tar_fecha) = $month";
+$validar = mysqli_query($conexion, $validar_sql);
+if (mysqli_num_rows($validar)==$dh && $dh!=0){
+	$sql = "SELECT * FROM validacion INNER JOIN convenio ON convenio.con_id = validacion.val_convenioid WHERE con_alumnoid = $_SESSION[al] AND (val_validado='1' OR val_validado='2') AND val_mes ='$month'";
+	$val = mysqli_query($conexion, $sql);
+	if (mysqli_num_rows($val)>0){
+		$validator = 'valdiar';
 	}
 }
 
@@ -90,12 +105,13 @@ for ($i=1; $i<=$day_count ; $i++) {
 		$color = "background-color:red;";
 	}
 
+	if (isset($validator)){
+		$color = "background-color:MediumVioletRed;";
+	}
+
 	$time = "$showyear/$showmonth/$i";
 	if ($dia_t<$inicio || $dia_t>$fin) {
-		$color = "background-color:aqua;";
-		if(date('w', strtotime($time)) != 6 && date('w', strtotime($time)) != 0) {
-		$dh--;
-		}
+		$color = "background-color:#ccc;";
 	}
 
 	if(date('w', strtotime($time)) == 6 || date('w', strtotime($time)) == 0) {
@@ -124,7 +140,7 @@ for ($i=1; $i<=$day_count ; $i++) {
 		<?php	
 		echo "</div>";
 		} else {
-			if (isset($update)){
+			if (isset($update) || isset($validator)){
 				?>
 				<a href="#" onclick="mostrarDias(<?php echo " '$dia'"; ?>);">
 				<?php
@@ -164,3 +180,12 @@ if ($post_days != 0) {
 	}
 }
  ?>
+  <h3>Leyenda</h3>
+ <div>
+ <p style="background-color:green">Hoy</p>
+ <p style="background-color:#9c9">Dias no realizados</p>
+ <p style="background-color:yellow">Dias realizados</p>
+ <p style="background-color:red">Dias con faltas</p>
+ <p style="background-color:#ccc">Fines de semana + dias fuera de periodo</p>
+ <p style="background-color:MediumVioletRed">Dias validados</p>
+</div>

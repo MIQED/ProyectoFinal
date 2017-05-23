@@ -4,6 +4,7 @@
 include '../../../bd_con/conexion.php';
 
 session_start(); 
+include '../restriccion/restriccion.proc.php';
 
 	$totalHoras = $_POST['totalHoras'];
 

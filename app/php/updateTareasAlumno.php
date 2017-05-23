@@ -2,6 +2,7 @@
 	
 	include '../../bd_con/conexion.php';
 	session_start();
+	include 'restriccion/restriccion.php';
 
 	$dia = $_GET['dia'];
 	$dia_t = str_replace('/', '-', $dia);

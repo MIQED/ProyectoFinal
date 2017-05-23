@@ -1,6 +1,7 @@
 <?php 
 include '../../bd_con/conexion.php';
 session_start();
+include 'restriccion/restriccion.php';
 
 $showmonth = $_POST['showmonth'];
 $showyear=$_POST['showyear'];
@@ -149,9 +150,14 @@ for ($i=1; $i<=$day_count ; $i++) {
 		$color = "background-color:green;";
 	}
 
-	if ($dia_t<$inicio || $dia_t>$fin) {
-		$color = "background-color:aqua;";
+	if (isset($validator)){
+		$color = "background-color:MediumVioletRed;";
 	}
+
+	if ($dia_t<$inicio || $dia_t>$fin) {
+		$color = "background-color:#ccc;";
+	}
+
 		
 		if(isset($estilo)){
 			echo "<div class='cal_day' style='$estilo'>";
@@ -160,7 +166,7 @@ for ($i=1; $i<=$day_count ; $i++) {
 			<div class="day_heading"><?php echo "$i"?></div>
 		<?php	
 		echo "</div>";
-		} else if ($hoy_t < $dia_t || $dia_t<$inicio || $dia_t>$fin) {
+		} else if ($hoy_t < $dia_t || $dia_t<$inicio || $dia_t>$fin || isset($validator)) {
 			$div = "<diV class='cal_day' ";
 			if(isset($color)){
 				$div .= "style='$color";
@@ -205,4 +211,15 @@ if ($post_days != 0) {
 		echo "<diV class='non_cal_day'></div>";
 	}
 }
+
  ?>
+ <h3>Leyenda</h3>
+ <div>
+ <p style="background-color:green">Hoy</p>
+ <p style="background-color:#9c9">Dias no realizados</p>
+ <p style="background-color:yellow">Dias realizados</p>
+ <p style="background-color:red">Dias con faltas</p>
+ <p style="background-color:#ccc">Fines de semana + dias fuera de periodo</p>
+ <p style="background-color:MediumVioletRed">Dias validados</p>
+</div>
+

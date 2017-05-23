@@ -1,5 +1,6 @@
 <?php 
 session_start();
+include 'restriccion/restriccion.php';
 include '../../bd_con/conexion.php';
 
 unset($_SESSION["al"]);

@@ -1,3 +1,8 @@
+<?php 
+include '../../bd_con/conexion.php';
+session_start();
+include 'restriccion/restriccion.php';
+ ?>
 <nav>
 	<ul>
 		<li><a href="#" onclick="enviarDatos('perfilAlumno.php')">Datos personales</a></li>
@@ -7,8 +12,6 @@
 <div id="perfil">
 <?php 
 
-include '../../bd_con/conexion.php';
-session_start();
 $id = $_SESSION['id'];
 
 
