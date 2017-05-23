@@ -30,16 +30,48 @@ $month = date('m', strtotime($time));
 
 $validar_sql = "SELECT DISTINCT tar_fecha FROM tarea WHERE MONTH(tar_fecha) = $month";
 $validar = mysqli_query($conexion, $validar_sql);
-if (mysqli_num_rows($validar)==$dh){
-	$validator = "validar";
+if (mysqli_num_rows($validar)==$dh && $dh!=0){
 	$verficar_sql = "SELECT * FROM validacion 	WHERE val_mes = $month AND val_convenioid = '$_SESSION[convenio]'";
 	$verificar = mysqli_query($conexion, $verficar_sql);
 	if(mysqli_num_rows($verificar)==0){
 		
 		$insert = "INSERT INTO `validacion` (`val_id`, `val_validado`, `val_mes`, `val_convenioid`) VALUES (NULL, '0', $month, '$_SESSION[convenio]')";
 		mysqli_query($conexion, $insert);
+
+		$val_id = mysqli_insert_id($conexion);
+		/*-----------------------*/
+
+		$tipo_tar_sql = "SELECT DISTINCT tipo_h_tarea.tip_tar_id, tipo_h_tarea.tip_tar_descripcion FROM tipo_h_tarea INNER JOIN tipo_tarea ON tipo_tarea.tt_tiphtarid = tipo_h_tarea.tip_tar_id WHERE tt_cicloid = $_SESSION[ciclo]";
+ 	 	$tipo_tars = mysqli_query($conexion, $tipo_tar_sql);
+
+ 		while ($tipo_tar = mysqli_fetch_object($tipo_tars)) {			
+	 			$tarea_sql = "SELECT * FROM tipo_tarea WHERE tt_tiphtarid = '$tipo_tar->tip_tar_id'";
+	 			$tareas = mysqli_query($conexion, $tarea_sql);
+
+	 			while ($tarea = mysqli_fetch_object($tareas)) {
+	 				$tar_sql = "SELECT SUM(tar_duracion) as horas FROM tarea WHERE tar_convenioid='$_SESSION[convenio]' AND tar_tiptareaid = '$tarea->tt_id' AND MONTH(tar_fecha)='$month'";
+	 				$tars = mysqli_query($conexion, $tar_sql);
+	 				while($tar = mysqli_fetch_object($tars)){
+	 					if ($tar->horas != null){	
+	 						$hours = $tar->horas;
+	 					} else {
+	 						$hours = 0;
+	 					}
+	 					$insert = "INSERT INTO validar_tarea (vt_id, vt_totalHoras, vt_NotaEmpresa, vt_validacionid, vt_tipotareaid) VALUES (NULL, '$hours', NULL, $val_id, $tarea->tt_id)";
+	 					mysqli_query($conexion, $insert);
+	 				}
+	 	
+	 			}
+ 		}
+
+		/*-----------------------*/
 	}
-	
+
+	$sql = "SELECT * FROM validacion WHERE val_convenioid = $_SESSION[id] AND (val_validado='1' OR val_validado='2') AND val_mes ='$month'";
+	$val = mysqli_query($conexion, $sql);
+	if (mysqli_num_rows($val)>0){
+		$validator = 'valdiar';
+	}
 }
 
 $day = date("d");
@@ -64,7 +96,7 @@ echo "</div>";
 
 echo "<br><br><br><br>";
 if(isset($validator)){
-	echo "<p><a href='verValidacion.php'>Ver validacion</a></p>";
+	echo "<p><a href='verValidacion.php?mes=$month'>Ver validacion</a></p>";
 }
 
 echo "<div class='week_days'>";
@@ -128,7 +160,7 @@ for ($i=1; $i<=$day_count ; $i++) {
 			<div class="day_heading"><?php echo "$i"?></div>
 		<?php	
 		echo "</div>";
-		} else if ($hoy_t < $dia_t) {
+		} else if ($hoy_t < $dia_t || $dia_t<$inicio || $dia_t>$fin) {
 			$div = "<diV class='cal_day' ";
 			if(isset($color)){
 				$div .= "style='$color";

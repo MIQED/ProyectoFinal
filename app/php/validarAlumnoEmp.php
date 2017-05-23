@@ -16,6 +16,12 @@ while ($ciclo = mysqli_fetch_object($ciclos)) {
 	$apellido2 = $ciclo->alu_apellido2;
  } 
 
+ $convenio_sql = "SELECT * FROM convenio WHERE con_alumnoid = $alumnoid";
+	$convenios = mysqli_query($conexion, $convenio_sql);
+	while ($convenio = mysqli_fetch_object($convenios)) {
+		$convenio_id = $convenio->con_id;
+	}
+
  $num_tareas_sql = "SELECT * FROM tipo_tarea INNER JOIN tipo_h_tarea ON tipo_h_tarea.tip_tar_id = tipo_tarea.tt_tiphtarid WHERE tt_cicloid = $cicloid";
 	$num_tareas = mysqli_query($conexion, $num_tareas_sql);
 	$num_tareas = mysqli_num_rows($num_tareas);
@@ -49,7 +55,13 @@ while ($ciclo = mysqli_fetch_object($ciclos)) {
 	</script>
 </head>
 <body>
-<div><a href="tutor_empresa.php">Volver</a></div>
+<?php 
+if ($_SESSION['tipo']=="empresa") {	
+  echo '<div><a href="tutor_empresa.php">Volver</a></div>';
+} else {
+	echo '<div><a href="tutor_escuela.php">Volver</a></div>';
+}
+ ?>
  <div><a href="proc/logout.proc.php">Cerrar sessión</a></div>
 <?php 
 echo "<h1>Validar alumno: $nombre $apellido1 $apellido2</h1>";
@@ -68,15 +80,11 @@ echo "<div id='validar' style='color:red'></div>";
 	 			while ($tarea = mysqli_fetch_object($tareas)) {
 
 
-	 				$tar_sql = "SELECT SUM(tar_duracion) as horas FROM tarea INNER JOIN convenio ON tarea.tar_convenioid = convenio.con_id WHERE con_alumnoid='$alumnoid' AND tar_tiptareaid = '$tarea->tt_id' AND MONTH(tar_fecha)='$mes'";
+	 				$tar_sql = "SELECT * FROM validar_tarea INNER JOIN validacion ON validacion.val_id = validar_tarea.vt_validacionid WHERE val_convenioid='$convenio_id' AND vt_tipotareaid = '$tarea->tt_id' AND val_mes='$mes'";
 	 				$tars = mysqli_query($conexion, $tar_sql);
 
 	 				while($tar = mysqli_fetch_object($tars)){
-	 					if ($tar->horas != null){	
-	 						echo "<p>$tarea->tt_descripcion<b>$tar->horas</b></p>";
-	 					} else {
-	 						echo "<p>$tarea->tt_descripcion<b>0</b></p>";
-	 					}
+	 					echo "<p>$tarea->tt_descripcion <b>$tar->vt_totalHoras</b></p>";
 	 				}
 	 						echo "<select id='$tarea->tt_id' name='$tarea->tt_id'>";
 	 							echo "<option value='0'>----</option>";

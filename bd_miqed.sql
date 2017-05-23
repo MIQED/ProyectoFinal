@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2017 at 07:40 PM
--- Server version: 10.1.13-MariaDB
--- PHP Version: 7.0.6
+-- Generation Time: May 23, 2017 at 02:12 PM
+-- Server version: 10.1.16-MariaDB
+-- PHP Version: 5.6.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -77,7 +77,7 @@ CREATE TABLE `ausencia` (
 
 INSERT INTO `ausencia` (`aus_id`, `aus_fichero`, `aus_motivo`, `aus_horas`, `fecha`, `aus_convenioid`) VALUES
 (10, 'hola.docx', 'sadadsad', 2, '2017-05-16', 1),
-(11, NULL, 'Iba en patinete y me ha atropellado un coche saliendo del parkin, pido la baja no CS chao besis', 4, '2017-05-10', 1);
+(12, NULL, 'porque si', 4, '2017-05-10', 1);
 
 -- --------------------------------------------------------
 
@@ -193,33 +193,66 @@ INSERT INTO `horario_convenio` (`hr_id`, `hr_dias_semana`, `hr_hora_inicio`, `hr
 CREATE TABLE `tarea` (
   `tar_id` int(11) NOT NULL,
   `tar_duracion` int(1) NOT NULL,
-  `tar_nota_tutor` int(2) DEFAULT NULL,
   `tar_fecha` date NOT NULL,
   `tar_convenioid` int(11) NOT NULL,
-  `tar_tiptareaid` int(11) NOT NULL
+  `tar_tiptareaid` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tarea`
 --
 
-INSERT INTO `tarea` (`tar_id`, `tar_duracion`, `tar_nota_tutor`, `tar_fecha`, `tar_convenioid`, `tar_tiptareaid`) VALUES
-(9, 2, NULL, '2017-05-11', 1, 1),
-(10, 1, NULL, '2017-05-11', 1, 2),
-(11, 1, NULL, '2017-05-11', 1, 6),
-(12, 4, NULL, '2017-05-02', 1, 7),
-(23, 1, NULL, '2017-05-03', 1, 1),
-(24, 2, NULL, '2017-05-03', 1, 4),
-(25, 1, NULL, '2017-05-03', 1, 6),
-(26, 1, NULL, '2017-05-01', 1, 1),
-(27, 1, NULL, '2017-05-01', 1, 4),
-(28, 2, NULL, '2017-05-01', 1, 8),
-(29, 4, NULL, '2017-05-15', 1, 1),
-(31, 4, NULL, '2017-05-04', 1, 9),
-(38, 2, NULL, '2017-05-16', 1, 5),
-(39, 4, NULL, '2017-05-05', 1, 3),
-(40, 4, NULL, '2017-05-08', 1, 21),
-(41, 4, NULL, '2017-05-12', 1, 7);
+INSERT INTO `tarea` (`tar_id`, `tar_duracion`, `tar_fecha`, `tar_convenioid`, `tar_tiptareaid`) VALUES
+(9, 2, '2017-05-11', 1, 1),
+(10, 1, '2017-05-11', 1, 2),
+(11, 1, '2017-05-11', 1, 6),
+(12, 4, '2017-05-02', 1, 7),
+(23, 1, '2017-05-03', 1, 1),
+(24, 2, '2017-05-03', 1, 4),
+(25, 1, '2017-05-03', 1, 6),
+(26, 1, '2017-05-01', 1, 1),
+(27, 1, '2017-05-01', 1, 4),
+(28, 2, '2017-05-01', 1, 8),
+(29, 4, '2017-05-15', 1, 1),
+(31, 4, '2017-05-04', 1, 9),
+(38, 2, '2017-05-16', 1, 5),
+(39, 4, '2017-05-05', 1, 3),
+(40, 4, '2017-05-08', 1, 21),
+(41, 4, '2017-05-12', 1, 7),
+(42, 0, '2017-05-10', 1, NULL),
+(43, 4, '2017-04-03', 1, 23),
+(44, 4, '2017-04-04', 1, 1),
+(45, 4, '2017-04-05', 1, 17),
+(46, 4, '2017-04-06', 1, 9),
+(47, 4, '2017-04-07', 1, 14),
+(48, 4, '2017-04-10', 1, 2),
+(49, 4, '2017-04-11', 1, 17),
+(50, 4, '2017-04-12', 1, 10),
+(51, 4, '2017-04-13', 1, 9),
+(52, 4, '2017-04-14', 1, 20),
+(53, 4, '2017-04-17', 1, 6),
+(54, 2, '2017-04-18', 1, 17),
+(55, 2, '2017-04-18', 1, 18),
+(56, 3, '2017-04-19', 1, 18),
+(57, 1, '2017-04-19', 1, 21),
+(58, 4, '2017-04-20', 1, 10),
+(59, 4, '2017-04-21', 1, 20),
+(60, 4, '2017-04-24', 1, 12),
+(61, 4, '2017-04-25', 1, 2),
+(62, 4, '2017-04-26', 1, 16),
+(63, 4, '2017-04-27', 1, 5),
+(64, 4, '2017-04-28', 1, 3),
+(65, 4, '2017-05-09', 1, 2),
+(66, 4, '2017-05-17', 1, 17),
+(67, 4, '2017-05-18', 1, 6),
+(68, 4, '2017-03-22', 1, 1),
+(69, 4, '2017-03-23', 1, 2),
+(70, 4, '2017-03-24', 1, 16),
+(71, 4, '2017-03-27', 1, 14),
+(72, 4, '2017-03-28', 1, 13),
+(73, 4, '2017-03-29', 1, 2),
+(74, 4, '2017-03-30', 1, 17),
+(75, 4, '2017-03-31', 1, 12);
 
 -- --------------------------------------------------------
 
@@ -344,6 +377,124 @@ CREATE TABLE `validacion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `validacion`
+--
+
+INSERT INTO `validacion` (`val_id`, `val_validado`, `val_mes`, `val_convenioid`) VALUES
+(15, '2', 4, 1),
+(18, '0', 3, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `validar_tarea`
+--
+
+CREATE TABLE `validar_tarea` (
+  `vt_id` int(11) NOT NULL,
+  `vt_totalHoras` int(4) NOT NULL,
+  `vt_notaEmpresa` varchar(20) DEFAULT NULL,
+  `vt_validacionid` int(11) NOT NULL,
+  `vt_tipotareaid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `validar_tarea`
+--
+
+INSERT INTO `validar_tarea` (`vt_id`, `vt_totalHoras`, `vt_notaEmpresa`, `vt_validacionid`, `vt_tipotareaid`) VALUES
+(3, 4, 'Suficiente', 15, 1),
+(4, 8, 'Excelente', 15, 2),
+(5, 4, 'Notable', 15, 3),
+(6, 0, 'Suficiente', 15, 4),
+(7, 4, 'Insuficiente', 15, 5),
+(8, 4, 'Notable', 15, 6),
+(9, 0, 'Notable', 15, 7),
+(10, 0, 'Excelente', 15, 8),
+(11, 8, 'Excelente', 15, 9),
+(12, 8, 'Excelente', 15, 10),
+(13, 0, 'Excelente', 15, 11),
+(14, 4, 'Suficiente', 15, 12),
+(15, 0, 'Excelente', 15, 13),
+(16, 4, 'Notable', 15, 14),
+(17, 0, 'Suficiente', 15, 15),
+(18, 4, 'Insuficiente', 15, 16),
+(19, 10, 'Suficiente', 15, 17),
+(20, 5, 'Excelente', 15, 18),
+(21, 0, 'Notable', 15, 19),
+(22, 8, 'Excelente', 15, 20),
+(23, 1, 'Excelente', 15, 21),
+(24, 0, 'Excelente', 15, 22),
+(25, 4, 'Notable', 15, 23),
+(28, 0, NULL, 16, 3),
+(29, 0, NULL, 16, 4),
+(30, 0, NULL, 16, 5),
+(31, 0, NULL, 16, 6),
+(32, 0, NULL, 16, 7),
+(33, 0, NULL, 16, 8),
+(34, 0, NULL, 16, 9),
+(35, 0, NULL, 16, 10),
+(36, 0, NULL, 16, 11),
+(37, 0, NULL, 16, 12),
+(38, 0, NULL, 16, 13),
+(39, 0, NULL, 16, 14),
+(40, 0, NULL, 16, 15),
+(41, 0, NULL, 16, 16),
+(42, 0, NULL, 16, 17),
+(43, 0, NULL, 16, 18),
+(44, 0, NULL, 16, 19),
+(45, 0, NULL, 16, 20),
+(46, 0, NULL, 16, 21),
+(47, 0, NULL, 16, 22),
+(48, 0, NULL, 16, 23),
+(49, 0, NULL, 17, 1),
+(50, 0, NULL, 17, 2),
+(51, 0, NULL, 17, 3),
+(52, 0, NULL, 17, 4),
+(53, 0, NULL, 17, 5),
+(54, 0, NULL, 17, 6),
+(55, 0, NULL, 17, 7),
+(56, 0, NULL, 17, 8),
+(57, 0, NULL, 17, 9),
+(58, 0, NULL, 17, 10),
+(59, 0, NULL, 17, 11),
+(60, 0, NULL, 17, 12),
+(61, 0, NULL, 17, 13),
+(62, 0, NULL, 17, 14),
+(63, 0, NULL, 17, 15),
+(64, 0, NULL, 17, 16),
+(65, 0, NULL, 17, 17),
+(66, 0, NULL, 17, 18),
+(67, 0, NULL, 17, 19),
+(68, 0, NULL, 17, 20),
+(69, 0, NULL, 17, 21),
+(70, 0, NULL, 17, 22),
+(71, 0, NULL, 17, 23),
+(72, 4, NULL, 18, 1),
+(73, 8, NULL, 18, 2),
+(74, 0, NULL, 18, 3),
+(75, 0, NULL, 18, 4),
+(76, 0, NULL, 18, 5),
+(77, 0, NULL, 18, 6),
+(78, 0, NULL, 18, 7),
+(79, 0, NULL, 18, 8),
+(80, 0, NULL, 18, 9),
+(81, 0, NULL, 18, 10),
+(82, 0, NULL, 18, 11),
+(83, 4, NULL, 18, 12),
+(84, 4, NULL, 18, 13),
+(85, 4, NULL, 18, 14),
+(86, 0, NULL, 18, 15),
+(87, 4, NULL, 18, 16),
+(88, 4, NULL, 18, 17),
+(89, 0, NULL, 18, 18),
+(90, 0, NULL, 18, 19),
+(91, 0, NULL, 18, 20),
+(92, 0, NULL, 18, 21),
+(93, 0, NULL, 18, 22),
+(94, 0, NULL, 18, 23);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -426,6 +577,12 @@ ALTER TABLE `validacion`
   ADD PRIMARY KEY (`val_id`);
 
 --
+-- Indexes for table `validar_tarea`
+--
+ALTER TABLE `validar_tarea`
+  ADD PRIMARY KEY (`vt_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -438,7 +595,7 @@ ALTER TABLE `alumno`
 -- AUTO_INCREMENT for table `ausencia`
 --
 ALTER TABLE `ausencia`
-  MODIFY `aus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `aus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `ciclo`
 --
@@ -468,7 +625,7 @@ ALTER TABLE `horario_convenio`
 -- AUTO_INCREMENT for table `tarea`
 --
 ALTER TABLE `tarea`
-  MODIFY `tar_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `tar_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 --
 -- AUTO_INCREMENT for table `tipo_h_tarea`
 --
@@ -493,7 +650,12 @@ ALTER TABLE `tutor_escuela`
 -- AUTO_INCREMENT for table `validacion`
 --
 ALTER TABLE `validacion`
-  MODIFY `val_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `val_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+--
+-- AUTO_INCREMENT for table `validar_tarea`
+--
+ALTER TABLE `validar_tarea`
+  MODIFY `vt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

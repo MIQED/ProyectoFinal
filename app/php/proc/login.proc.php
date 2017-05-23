@@ -28,6 +28,7 @@
 			$_SESSION['id'] = $tutor_escuela->tut_esc_id;
 			$_SESSION['nombre'] = $tutor_escuela->tut_esc_nombre;
 			$_SESSION['apellidos'] = $tutor_escuela->tut_esc_apellido1." ".$tutor_escuela->tut_esc_apellido2 ;
+			$_SESSION['tipo'] = 'escuela';
 		}
 			header('location:../tutor_escuela.php');
 		} else {
@@ -39,6 +40,7 @@
 				while ($tutor_empresa = mysqli_fetch_object($tutor_empresas)) {
 					$_SESSION['id'] = $tutor_empresa->tut_emp_id;
 					$_SESSION['empresa'] = $tutor_empresa->tut_emp_empresaid;
+					$_SESSION['tipo'] = 'empresa';
 					header('location:../tutor_empresa.php');
 				}
 			}else{

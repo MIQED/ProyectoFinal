@@ -7,8 +7,11 @@
 	$_SESSION['al'] = $al;
 	}
 
-	
-
+	$convenio_sql = "SELECT *  FROM convenio WHERE con_alumnoid=$_SESSION[al]";
+	$convenios = mysqli_query($conexion, $convenio_sql);
+	while ($convenio = mysqli_fetch_object($convenios)) {
+		$convenio_id = $convenio->con_id;
+	}
  ?>
 <!DOCTYPE html>
 <html>
@@ -158,6 +161,14 @@
 	$alumnos = mysqli_query($conexion, $al_sql);
 	while($alumno = mysqli_fetch_object($alumnos)){
 		echo "<h3>Alumno: $alumno->alu_nombre $alumno->alu_apellido1 $alumno->alu_apellido2</h3>";
+	}
+
+	$validacion_sql = "SELECT * FROM validacion WHERE val_convenioid='$convenio_id' AND val_validado='2'";
+	$validaciones = mysqli_query($conexion, $validacion_sql);
+	if(mysqli_num_rows($validaciones)>0){
+		while ($validacion = mysqli_fetch_object($validaciones)) {
+			echo "<p><a href='verValidacion.php?mes=$validacion->val_mes'>Ver validacion mes $validacion->val_mes</a></p>";
+		}
 	}
  ?>
 <div id="calendar_wrap"></div>

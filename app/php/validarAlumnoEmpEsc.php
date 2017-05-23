@@ -16,6 +16,12 @@ while ($ciclo = mysqli_fetch_object($ciclos)) {
 	$apellido2 = $ciclo->alu_apellido2;
  } 
 
+ $convenio_sql = "SELECT * FROM convenio WHERE con_alumnoid = $alumnoid";
+	$convenios = mysqli_query($conexion, $convenio_sql);
+	while ($convenio = mysqli_fetch_object($convenios)) {
+		$convenio_id = $convenio->con_id;
+	}
+
  $num_tareas_sql = "SELECT * FROM tipo_tarea INNER JOIN tipo_h_tarea ON tipo_h_tarea.tip_tar_id = tipo_tarea.tt_tiphtarid WHERE tt_cicloid = $cicloid";
 	$num_tareas = mysqli_query($conexion, $num_tareas_sql);
 	$num_tareas = mysqli_num_rows($num_tareas);
@@ -25,28 +31,6 @@ while ($ciclo = mysqli_fetch_object($ciclos)) {
 <html>
 <head>
 	<title></title>
-	<script type="text/javascript">
-		
-	function validar(){
-		var msg = 0;
-			for (i = 1 ; i<=<?php echo $num_tareas; ?>; i++){
-				var element = document.getElementById(''+i+'');
-				if (element.value == 0 ){
-					element.style.borderColor = "red";
-					msg=1;
-				} else {
-					element.style.borderColor = "none";
-				}
-			}
-			if (msg){
-				document.getElementById('validar').innerHTML = "Debes validar todas las tareas";
-			return false;
-			} else {
-				return true;
-			}
-	}
-
-	</script>
 </head>
 <body>
 <div><a href="tutor_empresa.php">Volver</a></div>
@@ -67,22 +51,17 @@ echo "<div id='validar' style='color:red'></div>";
 
 	 			while ($tarea = mysqli_fetch_object($tareas)) {
 
-
-	 				$tar_sql = "SELECT SUM(tar_duracion) as horas, tar_notaEmpresa FROM tarea INNER JOIN convenio ON tarea.tar_convenioid = convenio.con_id WHERE con_alumnoid='$alumnoid' AND tar_tiptareaid = '$tarea->tt_id' AND MONTH(tar_fecha)='$mes'";
-	 				// echo $tar_sql;
+	 				$tar_sql = "SELECT * FROM validar_tarea INNER JOIN validacion ON validacion.val_id = validar_tarea.vt_validacionid WHERE val_convenioid='$convenio_id' AND vt_tipotareaid = '$tarea->tt_id' AND val_mes='$mes'";
 	 				$tars = mysqli_query($conexion, $tar_sql);
 
 	 				while($tar = mysqli_fetch_object($tars)){
-	 					if ($tar->horas != null){	
-	 						echo "<p>$tarea->tt_descripcion<b>$tar->horas</b></p>";
-	 					} else {
-	 						echo "<p>$tarea->tt_descripcion<b>0</b></p>";
-	 					}
-	 						
-	 						echo "$tar->tar_notaEmpresa";
+	 					echo "<p>$tarea->tt_descripcion <b>$tar->vt_totalHoras</b></p>";
+	 					echo "<p>$tar->vt_notaEmpresa</p>";
 	 				}
-
+	 		
+	 	
 	 			}
+
 	 			echo "<br><br>";
  		}
  		echo "<input type='hidden' name='alumnoid' value='$alumnoid'/>";
