@@ -6,9 +6,17 @@
 </head>
 <body>
 	<form action="proc/login.proc.php" method="POST">
-		E-mail : <input type="text" name="correo"/><br/>
-		Contraseña: <input type="password" name="pass"/><br/><br/>
-		<input type="submit" name="enviar" value="Entrar">
+		<div class="form-group">
+		  <label for="correo">E-mail: </label>
+		  <input type="email" class="form-control" id="correo" name="correo">
+		</div>
+		<div class="form-group">
+		  <label for="pass">Contraseña: </label>
+		  <input type="password" class="form-control" id="pass" name="pass">
+		</div>
+		<div class="center">
+			<input type="submit" name="enviar" class="btn btn-default" value="Entrar">	
+		</div>
 	</form>
 </body>
 </html>

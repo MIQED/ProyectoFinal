@@ -1,0 +1,282 @@
+/*Colores*/
+@colorall: orange;
+@colprin: #0033ff;
+@colheader: #CCD6FF;
+
+/*Medidas*/
+@100: 100%;
+@pad_mayoria: 2%;
+
+/*fuentes*/
+@fprin: "Berlin Sans FB";
+/*menu*/
+html, body {
+	width: @100;
+	height: @100;
+	overflow-x: hidden;
+}
+.center{
+	text-align: center;
+}
+.padd{
+	padding: 5%;
+}
+.all{
+	height: @100;
+	width: @100;
+}
+header{
+	text-align: center;
+}
+header nav {
+	width:90%;
+	max-width:1000px;
+	margin:10px auto;
+	/*background:@colheader;*/
+}
+
+.menu_bar {
+	display:none;
+}
+
+header nav ul {
+	overflow:hidden;
+	list-style:none;
+	/*text-align: center;*/
+}
+
+header nav ul li {
+	float:left;
+	/*text-align: center;*/	
+	width: 25%;
+}
+
+header nav ul li a {
+	color:black;
+	padding:5px;
+	display:block;
+	text-decoration:none;
+	text-align: center;
+	height: 30px;
+
+}
+
+
+header nav ul li a:hover {
+	border-bottom: 2px solid @colprin;
+	text-decoration: none;
+	color: @colprin;
+}
+
+header nav ul li a:focus, a:active {
+	/*background:@colheadhover;*/
+	text-decoration: none;
+	color: @colprin;
+}
+
+section {
+	padding:20px;
+}
+
+/*fin menu*/
+
+.grow:hover {
+	/*text-align: center;*/
+	transition:all 0.3s ease;
+	-webkit-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	transform: scale(1.1);
+}
+
+.logo{
+	border-bottom: 2px solid @colprin;
+}
+.img-logo{
+	width: 200;
+}
+
+/*login*/
+.principal{
+	height: 80%;
+	/*background: green;*/
+}
+.login {
+	height: 500px;
+	background: @colheader;
+	padding-top: 10%;
+	text-align: center;
+	border-bottom: 5px solid @colprin;
+}
+.logo-form {
+	width: 50%;
+}
+.form{
+	text-align: justify;
+}
+.azul {
+	color: @colprin;
+	font-size: 50px;
+}
+.tiny-azul{
+	color: @colprin;
+}
+.texto-fondo {
+	font-size: 45px;
+	font-family: @fprin;
+	padding-top: 5%;	
+}
+/*login*/
+
+/*que es*/
+.que-es{
+	height: 90%;
+	/*background: red;*/
+	padding: 5%;
+}
+.info-que-es{
+	font-size: 15px;
+	text-align: center;
+}
+/*fin que es*/
+
+
+/*objetivos*/
+.objetivos{
+	height: 65%;
+	background: #ccccff;
+	padding: 5%;
+}
+.texto-obj{
+	font-family: @fprin;
+	font-size: 30px;
+}
+.azul-obj{
+	color: @colprin;
+}
+.img-objetivos-txt{
+	width: 50px;
+}
+/*finobjetivos*/
+
+
+/*experiencia*/
+.exp{
+	height: 70%;
+	/*background: yellow;*/
+	padding: 5%;
+	text-align: justify;
+}
+/*fin exp*/
+.miqed{
+	height: 40%;
+	background: linear-gradient( to left, white, #ccccff);
+}
+.texto-miqed{
+	font-size: 45px;
+	font-family: @fprin;
+	text-align: right;
+}
+footer{
+	height: 10%;
+	text-align: center;
+	padding: 2%;
+	border-top: 2px solid @colprin;
+	font-size: 12px;
+}
+@media screen and (max-width:1000px ) {
+	header{
+		height: 17%;
+	}
+	header nav {
+		width:100%;
+		height:150px;
+		left:-100%;
+		margin:0;
+		position: absolute;
+		padding-top: 2%;
+			z-index: 1000;
+			background: white;
+		border-bottom: 2px solid @colprin;
+	}
+
+	header nav ul li {
+		display:block;
+		float:none;
+		border-bottom:1px solid rgba(255,255,255, .3);
+		/*background: @colprin;*/
+		width: 100%;
+	}
+
+	.menu_bar {
+		display:block;
+		width:100%;
+		/*background:black;*/
+	}
+
+	.menu_bar .bt-menu {
+		display:block;
+		padding:20px;
+		/*background:@colheader;*/
+		color:black;
+		text-decoration:none;
+		font-weight: bold;
+		font-size:22px;
+		-webkit-box-sizing:border-box;
+		-moz-box-sizing:border-box;
+		box-sizing:border-box;
+
+	}
+	.img-logo{
+		width: 110%;
+	}
+	.login {
+		height: 370px;
+	}
+	.azul {
+		font-size: 25px;
+	}
+	.texto-fondo {
+		font-size: 20px;
+		text-align: center;
+	}
+	.padd-bot{
+		padding-bottom: 5%;
+	}
+	.que-es{
+		height: 152%;
+		font-size: 12px;
+	}
+	.info-que-es{
+		font-size: 12px;
+	}
+	.info-que-es-logo {
+		width: 70%;
+	}
+	.img-objetivos{
+		width: 100%;
+	}
+	.img-trabajo{
+		width: 10%;
+		margin-bottom: 2%;
+		visibility: hidden;
+	}
+	/*.img-objetivos-txt{
+		width: 90%;
+	}*/
+	.objetivos{
+		height: 135%;
+	}
+	.exp{
+		height: 100%;
+		font-size: 12px;
+	}
+	.miqed{
+		height: 25%;
+	}
+	.texto-miqed{
+		font-size: 20px;
+	}
+	.logo-miqed{
+		width: 40%;
+	}
+}

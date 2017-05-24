@@ -6,6 +6,7 @@
 	<link rel="stylesheet/less" type="text/css" href="less/miqed.less">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
   	<link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+  	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
 
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -23,8 +24,8 @@
 	<header>
 		<div class="container">
 
-			<div class="col-sm-6 logo">
-				<a href="#"><img src="img/logo-empresa.png" width="200"></a>
+			<div class="col-sm-6 logo grow">
+				<a href="index.php"><img src="img/logo-empresa.png" width="200"></a>
 			</div>
 			<br>
 			<div class="menu_bar">
@@ -76,28 +77,31 @@
 		      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 		      <li data-target="#myCarousel" data-slide-to="1"></li>
 		      <li data-target="#myCarousel" data-slide-to="2"></li>
+		      <li data-target="#myCarousel" data-slide-to="3"></li>
 		    </ol>
 
 		    <div class="carousel-inner">
 		      <div class="item active">
-		        <img src="img/la.jpg" alt="Los Angeles" class="img-slider">
+		        <a href="http://soc-tree.com" target="blank"><img src="img/slider0.jpg" alt="HOURJOB" class="img-slider"></a>
 		      </div>
 
 		      <div class="item">
-		        <img src="img/chicago.jpg" alt="Chicago" class="img-slider">
+		        <a href="http://soc-tree.com" target="blank"><img src="img/slider1.jpg" alt="SOCTREE" class="img-slider"></a>
 		      </div>
 		    
 		      <div class="item">
-		        <img src="img/ny.jpg" alt="New york" class="img-slider">
+		        <a href="http://my-contacts.esy.es" target="blank"><img src="img/slider2.jpg" alt="MYCONTACTS" class="img-slider"></a>
+		      </div>
+
+		      <div class="item">
+		        <img src="img/slider3.jpg" alt="MIQED" class="img-slider">
 		      </div>
 		    </div>
 
 		    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-		      <span class="glyphicon glyphicon-chevron-left"></span>
 		      <span class="sr-only">Previous</span>
 		    </a>
 		    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-		      <span class="glyphicon glyphicon-chevron-right"></span>
 		      <span class="sr-only">Next</span>
 		    </a>
 		</div>
@@ -113,9 +117,28 @@
 			</div>
 			<div class="col-sm-offset-3 col-sm-6 empresa-texto">
 				<p>
-					<i>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu sollicitudin dolor. Integer lorem justo, hendrerit eu consequat id, laoreet eu felis. Nulla vitae luctus diam. Sed in velit malesuada, luctus turpis eget, mattis odio. Sed ac libero iaculis, semper ligula vel, fringilla lorem. Suspendisse bibendum suscipit varius. Aenean porta.</i>
+					<i>Hola! Somos Miquel y Edhu, estudiantes del Centro de Estudios Joan XXIII. Ya que nos hemos visto inmersos en varios proyectos a lo largo de este curso y del pasado, hemos decidido fundar una pequeña organización llamada MIQED. <br><br>
+					Con el ingenio de Miquel y la creatividad de Edhu todo proyecto es posible, ya que somos los mejores en cuanto a trabajo en equipo se refiere, confianza y profesionalidad hacen que tengamos buenos resultados</i>
 				</p>	
 				<img src="img/logo-empresa.png" width="150">
+			</div>
+			<div class="ventajas">
+				<div class="col-sm-4">
+					<i class="fa fa-paint-brush fa-5x" aria-hidden="true"></i>
+					<h3>Diseño</h3>
+					<p>Tu diseño es tu carta de presentación para el mundo. Nuestro equipo trabajará estrechamente contigo, para idear y diseñar una página que te represente.</p>
+				</div>
+				<div class="col-sm-4">
+					<i class="fa fa-code fa-5x" aria-hidden="true"></i>
+					<h3>Desarrollo</h3>
+					<p>Tener un gran diseño es una cosa, que la página funcione correctamente es otra. Nuestra tecnología líder en la industria llevará a tu sitio web al siguiente nivel.</p>
+				</div>
+				<div class="col-sm-4">
+					<i class="fa fa-handshake-o fa-5x" aria-hidden="true"></i>
+					<h3>Atención al cliente</h3>
+					<p>Tú puedes trabajar con nosotros en tu propio proyecto. Toma decisiones, nuestro equipo estará siempre disponible para dar soporte a la web y a tí.</p>
+				</div>
+			
 			</div>
 		</div>
 	</div>
@@ -131,33 +154,33 @@
 			</div>
 
 			<div class="content-tra">
-					<div class="col-sm-offset-2 col-sm-2 thumbnail  grow">
+					<a href="php/proyecto1.php"><div class="col-sm-offset-2 col-sm-2 thumbnail  grow">
 					    
-					      <img src="img/logo-app.jpg" class="img-tra">
+					      <img src="img/logo-app-hourjob.jpg" class="img-tra">
 					    
 					    <div class="caption">
-					        <p>App ¿?</p>
+					        <p>HOURJOB</p>
 					    </div>
-					</div>
+					</div></a>
 				
 				
-					<div class="col-sm-offset-1 col-sm-2 thumbnail grow">
+					<a href="http://soc-tree.com" target="blank"><div class="col-sm-offset-1 col-sm-2 thumbnail grow">
 					    
 					      <img src="img/3.jpg" class="img-tra">
 
 					    <div class="caption">
 					        <p>SocTree</p>
 					    </div>
-					</div>
+					</div></a>
 				
-					<div class="col-sm-offset-1 col-sm-2 thumbnail grow">
+					<a href="http://my-contacts.esy.es/" target="blank"><div class="col-sm-offset-1 col-sm-2 thumbnail grow">
 					   
 					      <img src="img/header.jpg" class="img-tra">
 
 					    <div class="caption">
 					        <p>MyContacts</p>
 					    </div>
-					</div>
+					</div></a>
 			</div>
 		</div>
 	</div>
