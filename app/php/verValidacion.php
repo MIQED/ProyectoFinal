@@ -103,6 +103,10 @@ echo "<h1>Validación mes de $mes_d</h1>";
 	 			echo "<p>Sin observaciones</p>";
 	 		}
  		}
+
+ 	if(!isset($_SESSION['convenio'])){
+ 		echo "<a href='pdf.php?mes=$mes' target='blank'>Ver PDF</a>";
+ 	}
  ?>
 </body>
 </html>

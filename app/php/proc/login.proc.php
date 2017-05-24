@@ -44,7 +44,7 @@
 					header('location:../tutor_empresa.php');
 				}
 			}else{
-				echo "Te equivocaste de contraseña pinche";
+				header('location:login.php');
 			}
 		}
 	}

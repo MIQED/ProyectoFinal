@@ -33,7 +33,7 @@
 				function enviarDatos(){
 			
 				  var ajax=objetoAjax();
-				var url = 'perfilAlumno.php'; 
+			   	  var url = 'perfilAlumno.php'; 
 				  ajax.open("POST", url, true);
 				  ajax.onreadystatechange=function() {
 				  	if (ajax.readyState==4) {
