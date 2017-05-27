@@ -182,11 +182,13 @@ $mes_d = $meses[$mes_0];
 	// $pdf->Cell(10, 10, "");
 	  $pdf->MultiCell(0, 10, utf8_decode($tarea->tt_descripcion), 0, 1);
 	  $pdf->SetFont('Arial','I',9	);
+
 	  if($tar->vt_notaEmpresa == "0"){
  				$pdf->Cell(54, 10, "NO VALIDADO");
 	 		} else {
  				$pdf->Cell(54, 10, utf8_decode($tar->vt_notaEmpresa));
 	 		}
+
 	  $pdf->Ln(15);
 	 			}	 	
 			}

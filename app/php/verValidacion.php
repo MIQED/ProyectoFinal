@@ -161,6 +161,7 @@ echo "<br><br><br><br>";
 	 		}
  		}
 
+
 echo "<br><br>";
 echo "</div>";
 echo "</div>";
@@ -170,6 +171,7 @@ if(!isset($_SESSION["convenio"])){
 	echo "</div>";
 }
 echo "</div>";
+
  ?>
  <br><br>
  </div>
