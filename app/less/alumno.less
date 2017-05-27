@@ -1,0 +1,240 @@
+/*Colores*/
+@colorall: orange;
+@colprin: #0033ff;
+@colheader: #CCD6FF;
+
+/*Medidas*/
+@100: 100%;
+@pad_mayoria: 2%;
+
+/*fuentes*/
+@fprin: "Berlin Sans FB";
+
+.center{
+	text-align: center;
+}
+.right {
+	text-align: right;
+}
+.todo{
+	height: 100%;
+}
+.fuente{
+	font-family: @fprin;
+}
+.text-normal{
+	font-family: calibri;
+}
+.grow:hover {
+	/*text-align: center;*/
+	transition:all 0.3s ease;
+	-webkit-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	transform: scale(1.1);
+}
+html, body{
+	width: 100%;
+	height: 100%;
+	color: black;
+}
+.all{
+	width: 100%;
+	height: 100%;
+	/*background: yellow;*/
+}
+.head-app{
+	height: 10%;
+	border-bottom: 2px solid @colprin;
+}
+.head-opc{
+	text-align: center;
+	/*background: white;*/
+	/*padding-top: %;*/
+
+	a {
+		color: @colprin;
+	}
+}
+.head-txt{
+	font-family: @fprin;
+	font-size: 25px;
+	/*background: blue;*/
+	padding-top: 1%;
+}
+.head-logo{
+	width: 80%;
+}
+
+
+header nav {
+	width:90%;
+	max-width:1000px;
+	margin:10px auto;
+	/*background:@colheader;*/
+}
+
+.menu_bar {
+	display:none;
+}
+
+header nav ul {
+	overflow:hidden;
+	list-style:none;
+	/*text-align: center;*/
+}
+
+header nav ul li {
+	float:left;
+	/*text-align: center;*/	
+	width: 25%;
+}
+
+header nav ul li a {
+	color:black;
+	padding:5px;
+	display:block;
+	text-decoration:none;
+	text-align: center;
+	height: 30px;
+
+}
+
+header nav ul li a:focus, a:active {
+	/*background:@colheadhover;*/
+	text-decoration: none;
+	color: @colprin;
+}
+
+section {
+	padding:20px;
+}
+
+/*fin menu*/
+.meses-opc{
+	padding-top: 1%;
+	padding-bottom: 1%;
+	color: @colprin;
+	font-family: @fprin;
+	font-size: 20px;
+}
+.calendario{
+	font-family: @fprin;
+	height: 100%;
+}
+.bg-info{
+	padding:1%;
+}
+.boton-info{
+	color: #82E0AA;
+	width: 100%;
+	height: 100%;
+}
+.pad-p{
+	padding:2%;
+}
+.margin-top-2{
+	margin-top: 3%;
+}
+.perfil-opc{
+	padding: 2%;
+}
+.post-it{
+	background: #D6EAF8;
+	/*border: 2px solid @colprin;*/
+	padding-left: 2%;
+	padding-right: 2%;
+	padding-bottom: 2%;
+	font-family: calibri;
+	border-radius: 5px;
+}
+.horas-fct{
+	font-size: 20px;
+}
+.sub-fct{
+	font-size: 25px;
+}
+.sub-fct-azul{
+	color: @colprin;
+}
+.horas-fixed {
+	position: fixed;
+    top: 22%;
+    left: 0;
+    z-index: 100000;
+    width: 20%;
+    background: white;
+}
+.ausencia{
+	background: #F7DC6F;
+	border-radius: 10px;
+	margin-bottom: 2%;
+}
+.buscar{
+	background: #D6EAF8;
+	border-radius: 10px;
+	padding: 2%;
+}
+.val-escuela{
+	background: #E8DAEF; 
+	padding:2%;
+	border-radius: 10px;
+}
+.val-empresa{
+	background: #FDEBD0; 
+	padding:2%;
+	border-radius: 10px;
+}
+@media screen and (max-width:1000px ) {
+	.head-logo{
+		width: 100%;
+	}
+	.head-txt{
+		font-size: 15px;
+		padding-top: 5%;
+	}
+
+
+	/*menu*/
+	header nav {
+		width:100%;
+		height:50px;
+		left:-110%;
+		margin-top:18%;
+		position: absolute;
+		padding-top: 2%;
+			z-index: 1000;
+			background: white;
+		/*border-bottom: 2px solid @colprin;*/
+	}
+
+	header nav ul li {
+		display:block;
+		float:none;
+		/*border-bottom:1px solid rgba(255,255,255, .3);*/
+		/*background: white;*/
+		width: 33%;
+		float: left;
+	}
+
+	.menu_bar {
+		display:block;
+		width:110%;
+		/*background:black;*/
+	}
+
+	.menu_bar .bt-menu {
+		/*display:block;*/
+		padding:20px;
+		/*background:@colheader;*/
+		color:@colprin;
+		text-decoration:none;
+		font-weight: bold;
+		font-size:22px;
+		-webkit-box-sizing:border-box;
+		-moz-box-sizing:border-box;
+		box-sizing:border-box;
+
+	}
+	/*fin menu*/
+}
+

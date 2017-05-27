@@ -17,8 +17,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="../css/calendar.css">
-	<title></title>
+	<link rel="stylesheet" type="text/css" href="../css/calendar.css">
+  	<link rel="shortcut icon" type="image/x-icon" href="../img/favicon_app.ico">
+  	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet/less" type="text/css" href="../less/alumno.less">
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+  	<link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../less/less.js"></script>
+
+	<!-- menu -->
+  	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="../js/menu.js"></script>
+	<!-- fin menu -->
+
+	<title>HOURJOB</title>
 	<script type="text/javascript">
 		function objetoAjax(){
 					var xmlhttp=false;
@@ -155,16 +169,58 @@
 	</script>
 </head>
 <body>
-<a href="tutor_escuela.php">Volver</a>
-<div><a href="proc/logout.proc.php">Cerrar sessión</a></div>
+<div class="all">
+	<header class="head-app">
+		<div class="container">	
+				<div class="col-sm-3 col-xs-6">
+					<a href="tutor_escuela.php"><img src="../img/logo-app-hourjob.png" class="head-logo grow"></a>
+				</div>
+				<div class="col-sm-3 head-txt col-xs-4">
+					Tutor Escuela
+				</div>
+
+				<div class="col-xs-2 menu_bar">
+					<a href="#" class="bt-menu"><i class="fa fa-bars" aria-hidden="true"></i></a>
+				</div>
+				
+				<div class="col-sm-offset-3 col-sm-3 head-opc"> 
+					<nav>
+						<ul>
+								<li><a href="tutor_escuela.php" onclick="enviarHome();"><i class="fa fa-home fa-2x" aria-hidden="true" title="Inicio"></i></a></li>	
+								
+								<!-- <li><a href="perfilAlumno.php" onclick="enviarDatos();"><i class="fa fa-user fa-2x" aria-hidden="true" title="Perfil"></i></a></li>
+								 -->
+								<li><a href="proc/logout.proc.php"><i class="fa fa-power-off fa-2x" style="color: #E74C3C" aria-hidden="true" title="Cerrar Sesión"></i></a></li>
+
+						</ul>
+					</nav>
+				</div>
+		</div>
+	</header>
+<br><br>
+<div class="container">
+<div class="col-sm-12 center">
 <?php 
 	$al_sql = "SELECT * FROM alumno WHERE alu_id=$_SESSION[al]";
 	$alumnos = mysqli_query($conexion, $al_sql);
 	while($alumno = mysqli_fetch_object($alumnos)){
-		echo "<h3>Alumno: $alumno->alu_nombre $alumno->alu_apellido1 $alumno->alu_apellido2</h3>";
-	}
 
-	$meses = array('enero','febrero','marzo','abril','mayo','junio','julio',
+echo "<div class='col-sm-12'>";
+	echo "<p class='sub-fct fuente'>Alumno: $alumno->alu_nombre $alumno->alu_apellido1 $alumno->alu_apellido2</p>";
+echo "</div>";		
+	}
+	
+ ?>
+ </div>
+ </div>
+	<div class="container">
+		<div id="calendar_wrap" class="calendario"></div>
+	</div>
+	<br><br>
+<div class="container">
+<div class="col-sm-12 center">
+<?php 
+$meses = array('enero','febrero','marzo','abril','mayo','junio','julio',
 			               'agosto','septiembre','octubre','noviembre','diciembre');
 
 	$validacion_sql = "SELECT * FROM validacion WHERE val_convenioid='$convenio_id' AND val_validado='2'";
@@ -172,10 +228,15 @@
 	if(mysqli_num_rows($validaciones)>0){
 		while ($validacion = mysqli_fetch_object($validaciones)) {
 				$mes_d = $validacion->val_mes-1;
-			echo "<p><a href='verValidacion.php?mes=$validacion->val_mes'>Ver validación mes $meses[$mes_d]</a></p>";
+				echo "<div class='col-sm-12'>";
+			echo "<p class='bg-info' style='background:#E8DAEF'><a href='verValidacion.php?mes=$validacion->val_mes'>Ver validación mes $meses[$mes_d]</a></p>";
+			echo "</div>";
 		}
 	}
- ?>
-<div id="calendar_wrap"></div>
+?>
+</div>
+ </div>
+ <br><br>
+</div>
 </body>
 </html>

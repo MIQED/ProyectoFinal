@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2017 at 07:15 PM
+-- Generation Time: May 26, 2017 at 06:08 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.6
 
@@ -53,7 +53,7 @@ CREATE TABLE `alumno` (
 --
 
 INSERT INTO `alumno` (`alu_id`, `alu_nombre`, `alu_apellido1`, `alu_apellido2`, `alu_sexo`, `alu_fecha_n`, `alu_dni`, `alu_ss`, `alu_telf`, `alu_direccion`, `alu_pais`, `alu_cp`, `alu_observaciones`, `alu_curso`, `alu_email`, `alu_pass`, `alu_cicloid`) VALUES
-(1, 'Granjero', 'Busca', 'Esposa', 'Hombre', '2017-05-09', '123456789', 12, 1, 'sdsasdasda', 'wdeqa', 1, 'ddwqdwqdq', 'Segundo', 'a@gmail.com', 'miuMRKK8xhs3M', 1),
+(1, 'Granjero', 'Busca', 'Esposa', 'Hombre', '2017-05-09', '123456789', 12, 1, 'sdsasdasda', 'wdeqa', 8901, 'ddwqdwqdq', 'Segundo', 'a@gmail.com', 'miuMRKK8xhs3M', 1),
 (2, 'B', 'ADSA', 'ASDADA', 'Mujer', '2017-05-18', '235235', 35353, 23, 'Hola que hase', 'Espain', 23408, 'KOLA', 'Primero', 'b@gmail.com', 'miuMRKK8xhs3M', 1);
 
 -- --------------------------------------------------------
@@ -91,7 +91,6 @@ CREATE TABLE `ciclo` (
   `cic_nombre` varchar(100) NOT NULL,
   `cic_grado` enum('Medio','Superior','','') NOT NULL,
   `cic_horas` int(4) NOT NULL,
-  `cic_escuelaid` int(11) NOT NULL,
   `cic_tutescid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -99,8 +98,8 @@ CREATE TABLE `ciclo` (
 -- Dumping data for table `ciclo`
 --
 
-INSERT INTO `ciclo` (`cic_id`, `cic_nombre`, `cic_grado`, `cic_horas`, `cic_escuelaid`, `cic_tutescid`) VALUES
-(1, 'Desarrollo de aplicaciones web (DAW)', 'Superior', 317, 1, 1);
+INSERT INTO `ciclo` (`cic_id`, `cic_nombre`, `cic_grado`, `cic_horas`, `cic_tutescid`) VALUES
+(1, 'Desarrollo de aplicaciones web (DAW)', 'Superior', 317, 1);
 
 -- --------------------------------------------------------
 
@@ -160,6 +159,13 @@ CREATE TABLE `escuela` (
   `esc_cp` int(5) NOT NULL,
   `esc_fax` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `escuela`
+--
+
+INSERT INTO `escuela` (`esc_id`, `esc_nombre`, `esc_direccion`, `esc_telf`, `esc_cp`, `esc_fax`) VALUES
+(1, 'Joan XXIII', 'Mare de déu de bellvitge 110', 123123123, 8903, 12313135);
 
 -- --------------------------------------------------------
 
@@ -354,15 +360,16 @@ CREATE TABLE `tutor_escuela` (
   `tut_esc_apellido2` varchar(20) NOT NULL,
   `tut_esc_email` varchar(100) NOT NULL,
   `tut_esc_pass` varchar(500) NOT NULL,
-  `tut_esc_telf` int(9) NOT NULL
+  `tut_esc_telf` int(9) NOT NULL,
+  `tut_esc_escuelaid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tutor_escuela`
 --
 
-INSERT INTO `tutor_escuela` (`tut_esc_id`, `tut_esc_nombre`, `tut_esc_apellido1`, `tut_esc_apellido2`, `tut_esc_email`, `tut_esc_pass`, `tut_esc_telf`) VALUES
-(1, 'Pedro', 'Blanco', 'Asecas', 'pblanco@fje.edu', 'miuMRKK8xhs3M', 123456789);
+INSERT INTO `tutor_escuela` (`tut_esc_id`, `tut_esc_nombre`, `tut_esc_apellido1`, `tut_esc_apellido2`, `tut_esc_email`, `tut_esc_pass`, `tut_esc_telf`, `tut_esc_escuelaid`) VALUES
+(1, 'Pedro', 'Blanco', 'Asecas', 'pblanco@fje.edu', 'miuMRKK8xhs3M', 123456789, 1);
 
 -- --------------------------------------------------------
 
@@ -620,7 +627,7 @@ ALTER TABLE `empresa`
 -- AUTO_INCREMENT for table `escuela`
 --
 ALTER TABLE `escuela`
-  MODIFY `esc_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `esc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `horario_convenio`
 --

@@ -44,8 +44,22 @@
  <!DOCTYPE html>
  <html>
  <head>
- 	<script src="../js/jquery-3.1.1.min.js"></script>
- 	<title></title>
+ 	<link rel="stylesheet" type="text/css" href="../css/calendar.css">
+  	<link rel="shortcut icon" type="image/x-icon" href="../img/favicon_app.ico">
+  	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet/less" type="text/css" href="../less/alumno.less">
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+  	<link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../less/less.js"></script>
+
+	<!-- menu -->
+  	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="../js/menu.js"></script>
+	<!-- fin menu -->
+
+	<title>HOURJOB</title>
  	<script type="text/javascript">
  	
  	var cont;
@@ -75,20 +89,82 @@ o 	$('#contador').html('<h3>Total de horas: '+cont+'</h3>');
  </head>
  <script type="text/javascript"></script>
  <body>
- <a href="verAlumno.php">Volver al calendario</a>
+ <div class="all">
+	<header class="head-app">
+		<div class="container">	
+				<div class="col-sm-3 col-xs-6">
+					<a href="tutor_escuela.php"><img src="../img/logo-app-hourjob.png" class="head-logo grow"></a>
+				</div>
+				<div class="col-sm-3 head-txt col-xs-4">
+					Tutor Escuela
+				</div>
+
+				<div class="col-xs-2 menu_bar">
+					<a href="#" class="bt-menu"><i class="fa fa-bars" aria-hidden="true"></i></a>
+				</div>
+				
+				<div class="col-sm-offset-3 col-sm-3 head-opc"> 
+					<nav>
+						<ul>
+								<li><a href="verAlumno.php" onclick="enviarHome();"><i class="fa fa-calendar-o fa-2x" aria-hidden="true" title="Calendario"></i></a></li>	
+								
+								<!-- <li><a href="perfilAlumno.php" onclick="enviarDatos();"><i class="fa fa-user fa-2x" aria-hidden="true" title="Perfil"></i></a></li>
+								 -->
+								<li><a href="proc/logout.proc.php"><i class="fa fa-power-off fa-2x" style="color: #E74C3C" aria-hidden="true" title="Cerrar Sesión"></i></a></li>
+
+						</ul>
+					</nav>
+				</div>
+		</div>
+	</header>
+<br><br>
  	<?php 
- 		echo "<h1>Tareas dia $dia</h1>";
 
- 		echo "<div id='contador'></div>";
+echo "<div class='container'>";
+	echo "<div class='col-sm-12'>";
+		echo "<div class='col-sm-6'>";
+			echo "<div class='col-sm-12'>";
+				echo "<p class='sub-fct fuente'>TAREAS DEL DÍA <span class='sub-fct-azul'>$dia</span></p>";
+			echo "</div>";
 
- 		if(isset($motivo)){
- 			echo "<h3>Ausencia</h3>";
-	 		echo "Motivo ausencia<br>";
-	 		echo "$motivo<br><br>";
-	 		echo "<a href='../ausencias/$file'>Descargar justificante</a><br><br>";
-			echo "Numero de horas: $horas<br><br><br>";
-		 	}
+	 	$al_sql = "SELECT * FROM alumno WHERE alu_id=$_SESSION[al]";
+		$alumnos = mysqli_query($conexion, $al_sql);
+		while($alumno = mysqli_fetch_object($alumnos)){
 
+			echo "<div class='col-sm-12'>";
+				echo "<p class='sub-fct fuente'>Alumno: $alumno->alu_nombre $alumno->alu_apellido1 $alumno->alu_apellido2</p>";
+			echo "</div>";		
+		}
+		echo "</div>";
+
+	 		echo "<div id='contador'></div>";
+
+	 		if(isset($motivo)){
+	 			echo "<div class='col-sm-offset-6'>";
+				echo "<div class='col-sm-12 ausencia'>";
+		 			echo "<h3><b>Ausencia</b></h3>";
+			 		echo "<b>Motivo ausencia</b><br>";
+			 		echo "$motivo<br><br>";
+			 		echo "<div class='col-sm-6 center'>";
+			 			echo "<b>Horas faltadas:</b><span style='color:red'> $horas h</span>	<br><br>";
+			 		echo "</div>";
+			 		echo "<div class='col-sm-6 center'>";
+			 		if ($file != NULL){
+						echo "<a href='../ausencias/$file' class='btn btn-success'><i class='fa fa-download' aria-hidden='true'></i>&nbsp;&nbsp;Descargar justificante</a><br><br>";
+			 		} else {
+			 			echo "<a href='#' class='btn btn-success' disabled='disabled'><i class='fa fa-download' aria-hidden='true'></i>&nbsp;&nbsp;Descargar justificante</a><br><br>";
+			 		}
+					echo "</div>";	
+				echo "</div>";
+				echo "</div>";
+
+			 	}
+	echo "</div>";	 	
+echo "</div>";
+echo "<br>";
+echo "<div class='container'>";
+echo "<div class='text-normal'>";
+	echo "<table class='table'>";
  	$tipo_tar_sql = "SELECT DISTINCT tipo_h_tarea.tip_tar_id, tipo_h_tarea.tip_tar_descripcion FROM tipo_h_tarea INNER JOIN tipo_tarea ON tipo_tarea.tt_tiphtarid = tipo_h_tarea.tip_tar_id WHERE tt_cicloid = $ciclo";
  		 	$tipo_tars = mysqli_query($conexion, $tipo_tar_sql);
 
@@ -96,7 +172,9 @@ o 	$('#contador').html('<h3>Total de horas: '+cont+'</h3>');
 	 			$tarea_sql = "SELECT * FROM tipo_tarea WHERE tt_tiphtarid = '$tipo_tar->tip_tar_id'";
 	 			$tareas = mysqli_query($conexion, $tarea_sql);
 	 				
-	 				echo "$tipo_tar->tip_tar_descripcion<br>";
+	 				echo "<tr class='info'>";
+	 				echo "<td><b style='font-size:15px'>$tipo_tar->tip_tar_descripcion</b></td>";
+	 				echo "</tr>";
 
 	 			while ($tarea = mysqli_fetch_object($tareas)) {
 
@@ -105,17 +183,24 @@ o 	$('#contador').html('<h3>Total de horas: '+cont+'</h3>');
 	 				$tars = mysqli_query($conexion, $tar_sql);
 
 	 				if (mysqli_num_rows($tars)>0){
+	 				echo "<tr>";	
 	 				while($tar = mysqli_fetch_object($tars)){
-	 						echo "<p style='background-color:lime'>$tarea->tt_descripcion<b>$tar->tar_duracion</b></p>";
+	 					 	echo "<td><p style='background-color:#82E0AA'>$tarea->tt_descripcion</p></td><td><p><b>$tar->tar_duracion</b></p></td>";
+	 						// echo "<p style='background-color:lime'>$tarea->tt_descripcion<b>$tar->tar_duracion</b></p>";
 	 					}
 	 				} else {
-	 					echo "<p>$tarea->tt_descripcion<b>0</b></p>";
+	 					echo "<td><p>$tarea->tt_descripcion</p></td><td><p><b>0</b></p></td>";
 	 				}
-	 	
+	 				echo "</tr>";
 	 			}
-	 			echo "<br><br>";
 
  		}
+ 		echo "</table>";
+
+ 		echo "<br><br>";
+ 	echo "</div>";
+echo "</div>";
  		?>
+ 		</div>
  </body>
  </html>

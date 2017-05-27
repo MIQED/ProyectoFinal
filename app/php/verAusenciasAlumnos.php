@@ -13,13 +13,13 @@
 	$ausencias = mysqli_query($conexion, $ausecia_sql);
 	if (mysqli_num_rows($ausencias)>0){
 		while ($ausencia = mysqli_fetch_object($ausencias)) {
-		echo "<table border>";
+		echo "<table class='table' style='background:white'>";
 			echo "<tr>";
 				echo "<th>Apellidos</th>";
 				echo "<th>Nombre</th>";
 				echo "<th>Correo</th>";
 				echo "<th>Telf</th>";
-				echo "<th><a href='#' onclick='enviarDatos($ausencia->aus_id);'>X</a></th>";
+				echo "<th><a href='#' onclick='enviarDatos($ausencia->aus_id);'><i class='fa fa-times fa-lg' aria-hidden='true'></i></a></th>";
 			echo "</tr>";
 			echo "<tr>";
 		 		echo "<td>$ausencia->alu_apellido1 $ausencia->alu_apellido2</td>";
@@ -46,7 +46,7 @@
 		 		echo "<td>$ausencia->aus_horas</td>";
 		 		echo "<td colspan='2'>$ausencia->fecha</td>";
 		 		if($ausencia->aus_fichero != NULL){
-		 			echo "<td><a href='../ausencias/$ausencia->aus_fichero'>Descargar justificante</a></td>";
+		 			echo "<td><a href='../ausencias/$ausencia->aus_fichero'class='btn btn-success'><i class='fa fa-download' aria-hidden='true'></i>&nbsp;&nbsp;Descargar</a></td>";
 		 		} else {
 		 			echo "<td>Sin justificante</td>";
 		 		}
@@ -57,7 +57,9 @@
 			}
 
 	} else {
-		echo "<p>No hay ninguna ausencia</p>";
+		echo "<div class='col-sm-12'>";
+		echo "<p>Sin alumnos con ausencias</p>";
+		echo "</div>";
 	}
 
  ?>

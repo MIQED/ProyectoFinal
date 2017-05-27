@@ -82,7 +82,7 @@
 
 		    <div class="carousel-inner">
 		      <div class="item active">
-		        <a href="http://soc-tree.com" target="blank"><img src="img/slider0.jpg" alt="HOURJOB" class="img-slider"></a>
+		        <a href="http://hourjob.esy.es" target="blank"><img src="img/slider0.jpg" alt="HOURJOB" class="img-slider"></a>
 		      </div>
 
 		      <div class="item">
@@ -154,7 +154,7 @@
 			</div>
 
 			<div class="content-tra">
-					<a href="php/proyecto1.php"><div class="col-sm-offset-2 col-sm-2 thumbnail  grow">
+					<a href="http://hourjob.esy.es"><div class="col-sm-offset-2 col-sm-2 thumbnail  grow">
 					    
 					      <img src="img/logo-app-hourjob.jpg" class="img-tra">
 					    
@@ -192,10 +192,10 @@
 				<p>CONTACTO</p>
 			</div>
 			<div class="info-contacto">
-				<div class="col-sm-offset-4 col-sm-1">
+				<div class="col-sm-offset-3 col-sm-2">
 					<img src="img/logo-empresa.png" width="80">
 				</div>
-				<div class="col-sm-3">
+				<div class="col-sm-4">
 					<p class="mail">
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-envelope-o" aria-hidden="true"></i>
 						miqed.info@gmail.com

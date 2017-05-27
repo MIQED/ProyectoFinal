@@ -31,22 +31,39 @@ while ($ciclo = mysqli_fetch_object($ciclos)) {
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<link rel="stylesheet" type="text/css" href="../css/calendar.css">
+  	<link rel="shortcut icon" type="image/x-icon" href="../img/favicon_app.ico">
+  	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet/less" type="text/css" href="../less/alumno.less">
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+  	<link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../less/less.js"></script>
+
+	<!-- menu -->
+  	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="../js/menu.js"></script>
+	<!-- fin menu -->
+
+	<title>HOURJOB</title>
 	<script type="text/javascript">
 		
 	function validar(){
 		var msg = 0;
 			for (i = 1 ; i<=<?php echo $num_tareas; ?>; i++){
 				var element = document.getElementById(''+i+'');
-				if (element.value == 0 ){
+				valor = element.value;
+				valor = parseInt(valor);
+				if (element.value == 0 || isNaN(valor)){
+					element.style.borderColor = "none";
+				} else {
 					element.style.borderColor = "red";
 					msg=1;
-				} else {
-					element.style.borderColor = "none";
 				}
 			}
 			if (msg){
-				document.getElementById('validar').innerHTML = "Debes validar todas las tareas";
+				document.getElementById('validar').innerHTML = "Debes validar todas las tareas en el que el alumno ha introducio horas";
 			return false;
 			} else {
 				return true;
@@ -56,17 +73,59 @@ while ($ciclo = mysqli_fetch_object($ciclos)) {
 	</script>
 </head>
 <body>
-<?php 
-if ($_SESSION['tipo']=="empresa") {	
-  echo '<div><a href="tutor_empresa.php">Volver</a></div>';
-} else {
-	echo '<div><a href="tutor_escuela.php">Volver</a></div>';
-}
- ?>
- <div><a href="proc/logout.proc.php">Cerrar sessión</a></div>
-<?php 
-echo "<h1>Validar alumno: $nombre $apellido1 $apellido2</h1>";
+<div class="all">
+	<header class="head-app">
+		<div class="container">	
+				<div class="col-sm-3 col-xs-6">
+					<a href="tutor_escuela.php"><img src="../img/logo-app-hourjob.png" class="head-logo grow"></a>
+				</div>
+				<div class="col-sm-3 head-txt col-xs-4">
+					Tutor Escuela
+				</div>
+
+				<div class="col-xs-2 menu_bar">
+					<a href="#" class="bt-menu"><i class="fa fa-bars" aria-hidden="true"></i></a>
+				</div>
+				
+				<div class="col-sm-offset-3 col-sm-3 head-opc"> 
+					<nav>
+						<ul>
+							<?php 
+								if ($_SESSION['tipo']=="empresa") {	
+								  echo '<li><a href="tutor_empresa.php" onclick="enviarHome();"><i class="fa fa-home fa-2x" aria-hidden="true" title="Calendario"></i></a></li>	';
+								} else {
+									echo '<li><a href="tutor_escuela.php" onclick="enviarHome();"><i class="fa fa-home fa-2x" aria-hidden="true" title="Calendario"></i></a></li>	';
+								}
+							?>
+								<!-- <li><a href="tutor_escuela.php" onclick="enviarHome();"><i class="fa fa-home fa-2x" aria-hidden="true" title="Calendario"></i></a></li>	 -->
+								
+								<!-- <li><a href="perfilAlumno.php" onclick="enviarDatos();"><i class="fa fa-user fa-2x" aria-hidden="true" title="Perfil"></i></a></li>
+								 -->
+								<li><a href="proc/logout.proc.php"><i class="fa fa-power-off fa-2x" style="color: #E74C3C" aria-hidden="true" title="Cerrar Sesión"></i></a></li>
+
+						</ul>
+					</nav>
+				</div>
+		</div>
+	</header>
+<br><br>
+<?php
+echo "<div class='container'>";
+	echo "<div class='col-sm-12'>";
+		echo "<p class='sub-fct fuente'>VALIDAR <span class='sub-fct-azul'>ALUMNO:</span> $nombre $apellido1 $apellido2</p>";
+	echo "</div>"; 
+echo "</div>"; 
+
 echo "<div id='validar' style='color:red'></div>";
+
+echo "<div class='container'>";
+echo "<div class='text-normal'>";
+echo "<table class='table'>";
+echo "<tr>";
+echo "<td style='width:80%'></td>";
+echo "<td  class='center info' style='width:10%'>Horas</td>";
+echo "<td  class='center info' style='width:10%'>Valoración</td>";
+echo "</tr>";
 	echo "<form id='form' method='POST' action='proc/validarAlumnoEmp.proc.php' onsubmit='return validar();'>";
 
 	$tipo_tar_sql = "SELECT DISTINCT tipo_h_tarea.tip_tar_id, tipo_h_tarea.tip_tar_descripcion FROM tipo_h_tarea INNER JOIN tipo_tarea ON tipo_tarea.tt_tiphtarid = tipo_h_tarea.tip_tar_id WHERE tt_cicloid = $cicloid";
@@ -75,36 +134,48 @@ echo "<div id='validar' style='color:red'></div>";
  		while ($tipo_tar = mysqli_fetch_object($tipo_tars)) {			
 	 			$tarea_sql = "SELECT * FROM tipo_tarea WHERE tt_tiphtarid = '$tipo_tar->tip_tar_id'";
 	 			$tareas = mysqli_query($conexion, $tarea_sql);
-	 				
-	 				echo "<b>$tipo_tar->tip_tar_descripcion</b><br>";
+	 				echo "<tr class='info'>";
+	 				echo "<td><b style='font-size:15px'>$tipo_tar->tip_tar_descripcion</b></td>";
+	 				echo "</tr>";
 
 	 			while ($tarea = mysqli_fetch_object($tareas)) {
 
 
 	 				$tar_sql = "SELECT * FROM validar_tarea INNER JOIN validacion ON validacion.val_id = validar_tarea.vt_validacionid WHERE val_convenioid='$convenio_id' AND vt_tipotareaid = '$tarea->tt_id' AND val_mes='$mes'";
+	 				// echo "$tar_sql";
 	 				$tars = mysqli_query($conexion, $tar_sql);
-
+	 				echo "<tr>";
 	 				while($tar = mysqli_fetch_object($tars)){
-	 					echo "<p>$tarea->tt_descripcion <b>$tar->vt_totalHoras</b></p>";
-	 				}
+	 					echo "<td><p>$tarea->tt_descripcion</p></td><td class='center'><p><b>$tar->vt_totalHoras h</b></p></td>";
+	 					
+	 					echo "<td>";
 	 						echo "<select id='$tarea->tt_id' name='$tarea->tt_id'>";
-	 							echo "<option value='0'>----</option>";
+	 							echo "<option value='$tar->vt_totalHoras'>----</option>";
 	 							echo "<option value='Excelente'>Excelente</option>";
 	 							echo "<option value='Notable'>Notable</option>";
 	 							echo "<option value='Suficiente'>Suficiente</option>";
 	 							echo "<option value='Insuficiente'>Insuficiente</option>";
 	 						echo "</select>";
+	 					echo "</td>";
+	 				echo "</tr>";
+	 				}
 	 	
 	 			}
-	 			echo "<br><br>";
- 		}
- 		 
 
+ 		}
+echo "</table>"; 		 
+echo "</div>";
  		echo "<input type='hidden' name='alumnoid' value='$alumnoid'/>";
  		echo "<input type='hidden' name='totalHoras' value='$num_tareas'/>";
  		echo "<input type='hidden' name='mes' value='$mes'/>";
- 		echo "<br><input type='submit' name='enviar' value='Validar'/>";
+ 		echo "<div class='container'>";
+ 		echo "<br><div class='col-sm-12 center'><input class='btn btn-success ' type='submit' name='enviar' value='Validar'/></div>";
+ 		echo "</div>";
  		echo "</form>";
+ 		
+ 	echo "</div>";
  ?>
+  <br><br>
+ </div>
 </body>
 </html>

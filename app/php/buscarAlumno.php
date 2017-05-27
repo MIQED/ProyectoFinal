@@ -12,12 +12,12 @@
 	$alumnos = mysqli_query($conexion, $sql);
 
 	if (mysqli_num_rows($alumnos)>0){
-		echo "<table>";
+		echo "<table class='table' style='background:white'>";
 			echo "<tr>";	
 				echo "<th>DNI</th>";
 				echo "<th>Nombre</th>";
 				echo "<th>Apellidos</th>";
-				echo "<th>Correo</th>";
+				// echo "<th>Correo</th>";
 				echo "<td></td>";
 			echo "</tr>";
 			while($alumno = mysqli_fetch_object($alumnos)){
@@ -25,13 +25,13 @@
 					echo "<td>$alumno->alu_dni</td>";
 					echo "<td>$alumno->alu_nombre</td>";
 					echo "<td>$alumno->alu_apellido1 $alumno->alu_apellido2</td>";
-					echo "<td>$alumno->alu_email</td>";
-					echo "<td><a href='verAlumno.php?al=$alumno->alu_id'>Ver</a></td>";
+					// echo "<td>$alumno->alu_email</td>";
+					echo "<td><a href='verAlumno.php?al=$alumno->alu_id'><i class='fa fa-eye fa-lg' title='Ver' aria-hidden='true'></i></a></td>";
 				echo "</tr>";
 			}
 		echo "</table>";
 	} else {
-		echo "<h2>Ningún alumno coincide con la búsqueda</h2>";
+		echo "<br><p style='color:red'>Ningún alumno coincide con la búsqueda ...</p>";
 	}
 }
 

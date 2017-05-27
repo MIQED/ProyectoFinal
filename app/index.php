@@ -6,7 +6,7 @@
 	<link rel="stylesheet/less" type="text/css" href="less/hourjob.less">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
   	<link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
-  	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+  	<link rel="shortcut icon" type="image/x-icon" href="img/favicon_app.ico">
 
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -40,7 +40,7 @@
 							
 								<li><a href="#objetivos">Objetivos</a></li>
 
-								<li><a href="#objetivos">Trabajo</a></li>
+								<li><a href="#trabajo">Trabajo</a></li>
 							
 								<li><a href="#contacto">Contáctanos</a></li>
 							</div>	
@@ -117,7 +117,7 @@ HOURJOB es una aplicación desarrollada por el equipo MIQED. Toma las bases del 
 		</div>
 	</section>
 
-	<a name="exp"></a>
+	<a name="trabajo"></a>
 	<section class="exp">
 		<div class="container">
 			<div class="col-sm-12 texto-obj">
@@ -151,17 +151,19 @@ HOURJOB es una aplicación desarrollada por el equipo MIQED. Toma las bases del 
 		</div>
 	</section>
 
+	<a name="contacto"></a>
 	<section class="miqed">	
 		<div class="container">
 			<div class="col-sm-12">
 				<div class="texto-miqed">
 					<p>Esta <span class="azul-obj">aplicación web</span><br>
 					ha sido desarrollada por</p>
-					<img src="img/logo-empresa.png" width="200" class="logo-miqed">
+					<a href="http://miqed.esy.es/" target="blank"><img src="img/logo-empresa.png" width="200" class="logo-miqed grow"></a>
 				</div>
 			</div>		
 		</div>
 	</section>
+
 	<footer>
 		&copy; Copyright 2017 <img src="img/logo-app-hourjob.png" width="100"> | Todos los derechos reservados. Página desarrollada por <img src="img/logo-empresa.png" width="50">
 	</footer>

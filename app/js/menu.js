@@ -8,13 +8,13 @@ function main(){
 
 		if(contador == 1){
 			$('nav').animate({
-				left: '0'
+				left: '-10%'
 			});
 			contador = 0;
 		} else {
 			contador = 1;
 			$('nav').animate({
-				left: '-100%'
+				left: '-120%'
 			});
 		}
 

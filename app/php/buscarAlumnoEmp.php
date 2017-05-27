@@ -12,7 +12,7 @@
 	$alumnos = mysqli_query($conexion, $sql);
 
 	if (mysqli_num_rows($alumnos)>0){
-		echo "<table>";
+		echo "<table class='table' style='background:white'>";
 			echo "<tr>";	
 				echo "<th>DNI</th>";
 				echo "<th>Nombre</th>";
@@ -29,7 +29,7 @@
 			}
 		echo "</table>";
 	} else {
-		echo "<h2>Ningún alumno coincide con la búsqueda</h2>";
+		echo "<br><p style='color:red'>Ningún alumno coincide con la búsqueda ...</p>";
 	}
 }
 

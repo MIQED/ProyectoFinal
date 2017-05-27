@@ -5,7 +5,7 @@
 	<title>APP</title>
 </head>
 <body>
-	<form action="proc/login.proc.php" method="POST">
+	<form action="php/proc/login.proc.php" method="POST">
 		<div class="form-group">
 		  <label for="correo">E-mail: </label>
 		  <input type="email" class="form-control" id="correo" name="correo">

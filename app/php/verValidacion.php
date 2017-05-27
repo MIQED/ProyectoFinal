@@ -35,16 +35,57 @@ $mes = $_GET['mes'];
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<link rel="stylesheet" type="text/css" href="../css/calendar.css">
+  	<link rel="shortcut icon" type="image/x-icon" href="../img/favicon_app.ico">
+  	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet/less" type="text/css" href="../less/alumno.less">
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+  	<link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../less/less.js"></script>
+	<title>HOURJOB</title>
 </head>
 <body>
+<div class="all">
+	<header class="head-app">
+		<div class="container">	
+				<div class="col-sm-3 col-xs-6">
+					<a href="alumno.php"><img src="../img/logo-app-hourjob.png" class="head-logo grow"></a>
+				</div>
+				<div class="col-sm-3 head-txt col-xs-4">
+					Alumno
+				</div>
+
+				<div class="col-xs-2 menu_bar">
+					<a href="#" class="bt-menu"><i class="fa fa-bars" aria-hidden="true"></i></a>
+				</div>
+				
+				<div class="col-sm-offset-3 col-sm-3 head-opc"> 
+					<nav>
+						<ul>
+								<!-- <li><a href="alumno.php" onclick="enviarHome();"><i class="fa fa-calendar-o fa-2x" aria-hidden="true" title="Inicio"></i></a></li>	
+								
+								<li><a href="perfilAlumno.php" onclick="enviarDatos();"><i class="fa fa-user fa-2x" aria-hidden="true" title="Perfil"></i></a></li> -->
+								
+								<li><a href="proc/logout.proc.php"><i class="fa fa-power-off fa-2x" style="color: #E74C3C" aria-hidden="true" title="Cerrar Sesión"></i></a></li>
+
+						</ul>
+					</nav>
+				</div>
+		</div>
+	</header>
+<div class="container">
+<div class="col-sm-12 center pad-p">
 <?php 
 	if (isset($_SESSION['convenio'])){
-		echo '<div><a href="alumno.php">Volver</a></div>';
+		echo '<div><a href="alumno.php" type="button" class="btn btn-default"><i class="fa fa-angle-double-left" aria-hidden="true"></i>&nbsp;&nbsp;Volver</a></div>';
 	} else {
-		echo '<div><a href="verAlumno.php">Volver</a></div>';
+		echo '<div><a href="verAlumno.php" type="button" class="btn btn-default"><i class="fa fa-angle-double-left" aria-hidden="true"></i>&nbsp;&nbsp;Volver</a></div>';
 	}	
- ?>
+ ?>	
+ </div>
+ </div>
 <?php 
 $meses = array('enero','febrero','marzo','abril','mayo','junio','julio',
                'agosto','septiembre','octubre','noviembre','diciembre');
@@ -57,34 +98,50 @@ if (strstr($mes, '0')){
 		$mes_0 = $mes_0-1;
 
 $mes_d = $meses[$mes_0];
+echo "<div class='container'>";
+echo "<div class='col-sm-12'>";
 
-echo "<h1>Validación mes de $mes_d</h1>";
+echo "<p class='sub-fct'>Validación mes de <span class='sub-fct-azul'>$mes_d</span></p>";
 
+echo "<div class='text-normal'>";
+echo "<table class='table'>";
+echo "<tr>";
+echo "<td style='width:80%'></td>";
+echo "<td  class='center info' style='width:10%'>Horas</td>";
+echo "<td  class='center info' style='width:10%'>Valoración</td>";
+echo "</tr>";
 	$tipo_tar_sql = "SELECT DISTINCT tipo_h_tarea.tip_tar_id, tipo_h_tarea.tip_tar_descripcion FROM tipo_h_tarea INNER JOIN tipo_tarea ON tipo_tarea.tt_tiphtarid = tipo_h_tarea.tip_tar_id WHERE tt_cicloid = $cicloid";
  		 	$tipo_tars = mysqli_query($conexion, $tipo_tar_sql);
 
  		while ($tipo_tar = mysqli_fetch_object($tipo_tars)) {			
 	 			$tarea_sql = "SELECT * FROM tipo_tarea WHERE tt_tiphtarid = '$tipo_tar->tip_tar_id'";
 	 			$tareas = mysqli_query($conexion, $tarea_sql);
-	 				
-	 				echo "<b>$tipo_tar->tip_tar_descripcion</b><br>";
+	 			
+	 				echo "<tr class='info'>";
+	 				echo "<td><b style='font-size:15px'>$tipo_tar->tip_tar_descripcion</b></td>";
+	 				echo "</tr>";
 
 	 			while ($tarea = mysqli_fetch_object($tareas)) {
 
 	 				$tar_sql = "SELECT * FROM validar_tarea INNER JOIN validacion ON validacion.val_id = validar_tarea.vt_validacionid WHERE val_convenioid='$convenioid' AND vt_tipotareaid = '$tarea->tt_id' AND val_mes='$mes'";
 	 				$tars = mysqli_query($conexion, $tar_sql);
-
+	 				echo "<tr>";
 	 				while($tar = mysqli_fetch_object($tars)){
-	 					echo "<p>$tarea->tt_descripcion <b>$tar->vt_totalHoras</b></p>";
-	 					echo "<p>$tar->vt_notaEmpresa</p>";
+	 					echo "<td><p>$tarea->tt_descripcion</p></td><td class='center'><p><b>$tar->vt_totalHoras h</b></p></td>";
+	 					if($tar->vt_notaEmpresa == "0"){
+ 							echo "<td class='center success'><p>NO VALIDADO</p></td>";
+	 					} else {
+ 							echo "<td class='center success'><p>$tar->vt_notaEmpresa</p></td>";
+
+	 					}
 	 				}
-	 		
+	 				echo "</tr>";
 	 	
 	 			}
-
-	 			echo "<br><br>";
  		}
+ 		echo "</table>";
 
+echo "<br><br><br><br>";
  		$sql = "SELECT * FROM validacion WHERE val_mes='$mes' AND val_convenioid='$convenioid'";
  		$results = mysqli_query($conexion, $sql);
  		while ($result = mysqli_fetch_object($results)) {
@@ -103,6 +160,18 @@ echo "<h1>Validación mes de $mes_d</h1>";
 	 			echo "<p>Sin observaciones</p>";
 	 		}
  		}
+
+echo "<br><br>";
+echo "</div>";
+echo "</div>";
+if(!isset($_SESSION["convenio"])){
+	echo "<div class='col-sm-12 center'>";
+	echo "<a href='pdf.php?mes=$mes' class='btn btn-success' target='blank'><i class='fa fa-download' aria-hidden='true'></i>&nbsp;&nbsp;Descargar PDF</a>";
+	echo "</div>";
+}
+echo "</div>";
  ?>
+ <br><br>
+ </div>
 </body>
 </html>

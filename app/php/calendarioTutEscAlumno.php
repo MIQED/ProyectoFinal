@@ -54,26 +54,27 @@ $ano = date('Y');
 	}	
 
 $hoy = "$day/$mes/$ano";
-	
-echo "<div class='title_bar'>";
-	echo "<div class='previous_month'><button onclick='prev_month($showmonth, $showyear);'>Anterior</button></div>";
-	echo "<div class='show_month'>".$showmonth."/".$showyear."</div>";
-	echo "<div class='next_month'><button onclick='next_month($showmonth, $showyear);'>Siguiente</button></div>";
+
+echo "<div class='col-sm-12 center meses-opc'>";
+	echo "<div class='col-sm-3 col-xs-4'><button class='btn btn-default' onclick='prev_month($showmonth, $showyear);'><i class='fa fa-arrow-left' aria-hidden='true'></i></button></div>";
+	echo "<div class='col-sm-5 col-xs-4'>".$showmonth."/".$showyear."</div>";
+	echo "<div class='col-sm-3 col-xs-4'><button class='btn btn-default' onclick='next_month($showmonth, $showyear);'><i class='fa fa-arrow-right' aria-hidden='true'></i></button></div>";
+	echo "<div class='col-sm-1 col-xs-3'><a href='#' class='boton-info' title='Info' data-toggle='modal' data-target='#myModal'><i class='fa fa-info-circle fa-2x' aria-hidden='true'></i></a></div>";
 echo "</div>";
 
-echo "<div id='tareasAlumno'>";
+echo "<div class='col-sm-12' id='tareasAlumno'>";
 echo "</div>";
 
 
-echo "<br><br><br><br>";
+echo "<br><br>";
 echo "<div class='week_days'>";
-	echo "<div class='days_of_week'>Lunes</div>";
-	echo "<div class='days_of_week'>Martes</div>";
-	echo "<div class='days_of_week'>Miércoles</div>";
-	echo "<div class='days_of_week'>Jueves</div>";
-	echo "<div class='days_of_week'>Viernes</div>";
-	echo "<div class='days_of_week'>Sábado</div>";
-	echo "<div class='days_of_week'>Domingo</div>";
+	echo "<div class='days_of_week'>LUNES</div>";
+	echo "<div class='days_of_week'>MARTES</div>";
+	echo "<div class='days_of_week'>MIÉRCOLES</div>";
+	echo "<div class='days_of_week'>JUEVES</div>";
+	echo "<div class='days_of_week'>VIERNES</div>";
+	echo "<div class='days_of_week'>SÁBADO</div>";
+	echo "<div class='days_of_week'>DOMINGO</div>";
 	echo "<div class='clear'></div>";
 echo "</div>";
 
@@ -95,31 +96,32 @@ for ($i=1; $i<=$day_count ; $i++) {
 	$dia_completo_sql = "SELECT * FROM tarea INNER JOIN convenio ON convenio.con_id = tarea.tar_convenioid WHERE con_alumnoid = $_SESSION[al] AND tar_fecha = '$dia_t'";
 	$dia_completos = mysqli_query($conexion, $dia_completo_sql);
 	if (mysqli_num_rows($dia_completos)>0) {
-			$color = "background-color:yellow;";
+			$color = "background-color:#82E0AA;";
 			$update = "update";			
 		}
 
 	$ausencia_sql = "SELECT * FROM ausencia WHERE fecha = '$dia_t' AND aus_convenioid='$convenioid'";
 	$ausencias = mysqli_query($conexion, $ausencia_sql);
 	if(mysqli_num_rows($ausencias)>0){
-		$color = "background-color:red;";
+		$color = "background-color:#F1948A;";
+		$update = "update";	
 	}
 
 	if (isset($validator)){
-		$color = "background-color:MediumVioletRed;";
+		$color = "background-color:#A9CCE3;";
 	}
 
 	$time = "$showyear/$showmonth/$i";
 	if ($dia_t<$inicio || $dia_t>$fin) {
-		$color = "background-color:#ccc;";
+		$color = "background-color:#E5E8E8;";
 	}
 
 	if(date('w', strtotime($time)) == 6 || date('w', strtotime($time)) == 0) {
-		$estilo = "background-color:#ccc;";
+		$estilo = "background-color:#E5E8E8;";
 	}
 
 	if ($dia == $hoy) {
-		$color = "background-color:green;";
+		$color = "border: 5px solid green;";
 	}
 		
 		if(isset($estilo)){
@@ -180,12 +182,21 @@ if ($post_days != 0) {
 	}
 }
  ?>
-  <h3>Leyenda</h3>
- <div>
- <p style="background-color:green">Hoy</p>
- <p style="background-color:#9c9">Dias no realizados</p>
- <p style="background-color:yellow">Dias realizados</p>
- <p style="background-color:red">Dias con faltas</p>
- <p style="background-color:#ccc">Fines de semana + dias fuera de periodo</p>
- <p style="background-color:MediumVioletRed">Dias validados</p>
-</div>
+<div class="modal fade" id="myModal" role="dialog">
+	    <div class="modal-dialog modal-sm">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">LEYENDA</h4>
+	        </div>
+	        <div class="modal-body">
+	          	<p class="pad-p" style="border: 5px solid green">Hoy</p>
+			 	<p class="pad-p" style="background-color:#F9E79F">Días no realizados</p>
+				<p class="pad-p" style="background-color:#82E0AA">Días realizados</p>
+			 	<p class="pad-p" style="background-color:#F1948A">Días con faltas</p>
+			 	<p class="pad-p" style="background-color:#A9CCE3">Días validados</p>
+			 	<p class="pad-p" style="background-color:#E5E8E8">Fines de semana + días fuera de periodo</p> 	
+	        </div>
+	      </div>
+	    </div>
+	  </div>
