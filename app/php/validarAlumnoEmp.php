@@ -151,8 +151,10 @@ echo "</tr>";
 	 					echo "<td>";
 	 						echo "<select id='$tarea->tt_id' name='$tarea->tt_id'>";
 	 							echo "<option value='$tar->vt_totalHoras'>----</option>";
+	 						if ($tar->vt_totalHoras != 0 ){
 	 							echo "<option value='Excelente'>Excelente</option>";
 	 							echo "<option value='Notable'>Notable</option>";
+	 						}
 	 							echo "<option value='Suficiente'>Suficiente</option>";
 	 							echo "<option value='Insuficiente'>Insuficiente</option>";
 	 						echo "</select>";
