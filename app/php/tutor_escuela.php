@@ -107,18 +107,26 @@ unset($_SESSION["al"]);
 			echo "</tr>";
 	while ($alu = mysqli_fetch_object($alus)) {
 		$con = $alu->con_id;
-			$horas_sql = "SELECT SUM(tar_duracion) as horas_ciclo, cic_horas FROM ciclo INNER JOIN tipo_tarea ON tipo_tarea.tt_cicloid = ciclo.cic_id INNER JOIN tarea ON tarea.tar_tiptareaid = tipo_tarea.tt_id WHERE cic_tutescid = $_SESSION[id] AND tar_convenioid = $con";
+			$horas_sql = "SELECT (cic_horas-SUM(tar_duracion)) as horas_ciclo, cic_horas FROM ciclo INNER JOIN tipo_tarea ON tipo_tarea.tt_cicloid = ciclo.cic_id INNER JOIN tarea ON tarea.tar_tiptareaid = tipo_tarea.tt_id WHERE cic_tutescid = $_SESSION[id] AND tar_convenioid = $con";
+			$var = 0;
 				$horas_ciclos = mysqli_query($conexion, $horas_sql);
 				while ($horas_ciclo = mysqli_fetch_object($horas_ciclos)) {
-					$horasRestantes = $horas_ciclo->cic_horas - $horas_ciclo->horas_ciclo;
-					if($horasRestantes < 50){					
-					echo "<tr>";
-					echo "<td>$alu->alu_apellido1 $alu->alu_apellido2 $alu->alu_nombre</td>";
-					echo "<td>$horasRestantes</td>";
-					echo "</tr>";
-					} 
+					$porcentaje = $horas_ciclo->cic_horas/10;
+					if ($horas_ciclo->horas_ciclo<=$porcentaje){	
+						echo "<tr>";
+							echo "<td>$alu->alu_nombre $alu->alu_apellido1 $alu->alu_apellido2</td>";
+							echo "<td>$horas_ciclo->horas_ciclo</td>";
+							echo "<td>$porcentage</td>";
+						echo "</tr>";
+						$var = 1;
+					}
 				}
 	}
+				if ($var == 0) {
+					echo "<tr>";
+						echo "<td colspan='2'>Sin próximos alumnos por finzalizar</td>";
+					echo "</tr>";
+				}
 	echo "</table>";
 
 	 ?>
