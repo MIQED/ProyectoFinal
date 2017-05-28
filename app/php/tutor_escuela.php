@@ -100,15 +100,26 @@ unset($_SESSION["al"]);
 	<?php 
 	$sql = "SELECT * FROM alumno INNER JOIN ciclo ON ciclo.cic_id = alumno.alu_cicloid INNER JOIN convenio ON convenio.con_alumnoid = alumno.alu_id WHERE cic_tutescid = $_SESSION[id]";
 	$alus = mysqli_query($conexion, $sql);
+			echo "<table>";
+			echo "<tr>";
+				echo "<td>Nombre y apellidos</td>";
+				echo "<td>Horas restantes</td>";
+			echo "</tr>";
 	while ($alu = mysqli_fetch_object($alus)) {
-		$alu = $alu->con_id;
-			$horas_sql = "SELECT SUM(tar_duracion) as horas_ciclo, cic_horas FROM ciclo INNER JOIN tipo_tarea ON tipo_tarea.tt_cicloid = ciclo.cic_id INNER JOIN tarea ON tarea.tar_tiptareaid = tipo_tarea.tt_id INNER JOIN alumno ON alumno.alu_cicloid = ciclo.cic_id WHERE cic_tutescid = $_SESSION[id] AND tar_convenioid = '$alu'";
-			echo "$horas_sql<br>";
+		$con = $alu->con_id;
+			$horas_sql = "SELECT SUM(tar_duracion) as horas_ciclo, cic_horas FROM ciclo INNER JOIN tipo_tarea ON tipo_tarea.tt_cicloid = ciclo.cic_id INNER JOIN tarea ON tarea.tar_tiptareaid = tipo_tarea.tt_id WHERE cic_tutescid = $_SESSION[id] AND tar_convenioid = $con";
 				$horas_ciclos = mysqli_query($conexion, $horas_sql);
 				while ($horas_ciclo = mysqli_fetch_object($horas_ciclos)) {
-					echo "$horas_ciclo->horas_ciclo<br>";
+					$horasRestantes = $horas_ciclo->cic_horas - $horas_ciclo->horas_ciclo;
+					if($horasRestantes < 50){					
+					echo "<tr>";
+					echo "<td>$alu->alu_apellido1 $alu->alu_apellido2 $alu->alu_nombre</td>";
+					echo "<td>$horasRestantes</td>";
+					echo "</tr>";
+					} 
 				}
 	}
+	echo "</table>";
 
 	 ?>
 			</div>	
